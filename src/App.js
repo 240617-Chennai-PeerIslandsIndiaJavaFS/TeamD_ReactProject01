@@ -1,12 +1,13 @@
+// src/App.jsx
+import React from 'react';
+import ForgotPage from './components/forgotpasswordpage/ForgotPage';
 
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <h1>Rev Task Management</h1>
-    </div>
-  );
-}
+const App = () => {
+    return (
+        <div>
+            <ForgotPage />
+        </div>
+    );
+};
 
 export default App;
