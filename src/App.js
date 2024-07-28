@@ -1,13 +1,10 @@
-// src/App.jsx
-import React from 'react';
-import ForgotPage from './components/forgotpasswordpage/ForgotPage';
+import './App.css';
+import Home from './components/Home.jsx/Home';
 
-const App = () => {
-    return (
-        <div>
-            <ForgotPage />
-        </div>
-    );
-};
+function App() {
+  return (
+      <Home/>    
+  );
+}
 
 export default App;
