@@ -1,9 +1,11 @@
 import './App.css';
-import Home from './components/Home.jsx/Home';
+import { UserContextComponent } from './components/Context/UserContextComponent';
+import Home from './components/HomePage/Home';
+import LoginPage from './components/loginpage/LoginPage';
 
 function App() {
   return (
-      <Home/>    
+      <Home/>
   );
 }
 

@@ -12,8 +12,8 @@ function Home() {
     const toggleNavbar = () => {
       setShow(!show);
     };
-  
-    return (
+    
+    return (        
       <div className="home">
         {/* <h1>Rev Task Management</h1> */}
         <div className='main'>
