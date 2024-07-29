@@ -1,14 +1,13 @@
-// src/App.jsx
-import React from 'react';
-import ForgotPage from './components/forgotpasswordpage/ForgotPage';
-import { Analysis } from './components/Analysis/Analysis';
 
+import './App.css';
+import { UserContextComponent } from './components/Context/UserContextComponent';
+import Home from './components/HomePage/Home';
+import LoginPage from './components/loginpage/LoginPage';
 
-const App = () => {
-    return (
-        <div>
-        </div>
-    );
-};
+function App() {
+  return (
+      <Home/>
+  );
+}
 
 export default App;
