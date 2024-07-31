@@ -6,7 +6,7 @@ import axios from 'axios';
 
 function LoginPage() {
 
-    const {userDetail,setUserDetail} = useContext(userContext);
+    const {userDetail,setUserDetail,projects,setProjects} = useContext(userContext);
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
 
@@ -15,14 +15,40 @@ function LoginPage() {
         console.log(email,password);
         try{
             const response = await axios.get(`http://localhost:3001/users?email=${email}&password=${password}`);
-            setUserDetail(response.data);
-            console.log(userDetail);
+            const userData = response.data;
+            setUserDetail(userData);
+            fetchProjects(userData);
+            // console.log(response.data);
         }
         catch(err){
             console.log(err);
         }
         setEmail("");
         setPassword("");
+    }
+
+    const fetchProjects = async(userData)=>{
+        let url;
+        if(userData.user_role === "ADMIN")
+            url = "http://localhost:3001/projects";
+        else if(userData.user_role === "MANAGER" || userData.user_role === "ASSOCIATE")
+            url = `http://localhost:3001/projects?manager=${userData.user_name}`;
+
+        if(url){
+            try{
+                const projectResponse = await axios.get(url);
+                console.log("API Response:", typeof(projectResponse.data));
+                if (Array.isArray(projectResponse.data)) {
+                    console.log("Array it is")
+                    setProjects(projectResponse.data);
+                }
+                // setProjects(projectResponse.data);
+                // console.log(projectResponse.data);
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
     }
 
     return (
@@ -34,7 +60,7 @@ function LoginPage() {
             <div className="login-form">
                 <h2>Welcome back</h2>
                 <p>Welcome back! Please enter your details.</p>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
                         <input type="email" id='email' name='email' value={email} onChange={(e)=>{setEmail(e.target.value)}} required/>
@@ -48,7 +74,7 @@ function LoginPage() {
                         <label htmlFor="terms">Term & Conditions</label>
                         <a href="#" className='forgot-password'>Forgot Password</a>
                     </div>
-                    <button type="submit" onClick={handleSubmit} className="login-button">Log in</button>
+                    <button type="submit" className="login-button">Log in</button>
                 </form>
                 <p className='signup-prompt'>Don't have an account ? <a href="#">Sign up for Free</a></p>
             </div>

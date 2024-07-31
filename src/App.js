@@ -1,14 +1,14 @@
 
-import './App.css';
 import { UserContextComponent } from './components/Context/UserContextComponent';
-import Home from './components/HomePage/Home';
 import LoginPage from './components/loginpage/LoginPage';
-
-
+import Home from './components/HomePage/Home';
+import './App.css';
 
 function App() {
   return (
-      <CreateTaskForm/>
+    <UserContextComponent>
+      <Home/>
+    </UserContextComponent>
   );
 }
 export default App;
