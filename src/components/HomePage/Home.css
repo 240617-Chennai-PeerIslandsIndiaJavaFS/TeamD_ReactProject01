@@ -1,36 +1,10 @@
-
 .home{
-    display: flex;
-    flex-direction: column;
+    padding-top: 3.5rem;
     min-height: 100vh;
 }
-  
-  
-.main {
-    flex: 1;
-}
-  
-  
-.no-expand{
-    padding-top: 4rem;
-    text-align: left;
-}
-  
-.content{
-    padding-left:calc(var(--nav-width) + 1rem);
-}
-  
-  
-  
-  
-@media screen and (min-width: 768px) {
-    .no-expand{
-      padding-top: 1rem;
-    }
-    .content{
-        padding-top: 0 rem;
-        padding-left:calc(var(--nav-width) + 4rem);
+
+@media screen and (min-width:768px) {
+    .home{
+        padding-top: 1rem;
     }
 }
-  
-  
