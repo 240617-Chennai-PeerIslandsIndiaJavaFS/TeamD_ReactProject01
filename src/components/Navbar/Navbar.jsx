@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faLayerGroup, faCircleUser, faRightToBracket, faUsers, faClipboard, faProjectDiagram, faChartBar, faEnvelope, faCog} from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 
-const Navbar = ({show,toggleNavbar}) => {
+const Navbar = ({show,toggleNavbar,setNavigate}) => {
     const [activeLink, setActiveLink] = useState('');
 
     const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
@@ -21,15 +21,24 @@ const Navbar = ({show,toggleNavbar}) => {
     const handleLinkClick = (link) => {
         setActiveLink(link);
     };
+    const userOption=()=>{
+        setNavigate((data)=>{
+          return {...data,"user":true}
+        });
 
-    const icons = {
-        Users: faUsers,
-        Clients: faClipboard,
-        Projects: faProjectDiagram,
-        Stats: faChartBar,
-        Message: faEnvelope,
-        Settings: faCog
-    };
+    }
+
+    const admin = [
+        ["Users",faUsers,userOption],
+        ["Clients" ,faClipboard,userOption],
+        ["Projects",faProjectDiagram,userOption],
+        ["Stats",faChartBar,userOption],
+     
+    ]
+    const commonOptions={
+        Message: [faEnvelope,userOption],
+        Settings: [faCog,userOption]
+    }
 
     return (
         <>
@@ -56,15 +65,15 @@ const Navbar = ({show,toggleNavbar}) => {
                             <span className="nav_logo-name">RevTask</span>
                         </a>
                         <div className="nav_list">
-                            {['Users', 'Clients', 'Projects', 'Stats', 'Message', 'Settings'].map((link) => (
+                            {admin.map((feature,idx) => (
                                 <a
                                     href="#"
-                                    className={`nav_link ${activeLink === link ? 'active' : ''}`}
-                                    key={link}
-                                    onClick={() => handleLinkClick(link)}
+                                    className={`nav_link`}
+                                    key={idx}
+                                    onClick={() => feature[2]()}
                                 >
-                                    <FontAwesomeIcon icon={icons[link]} className="nav_icon" />
-                                    <span className="nav_name">{link}</span>
+                                    <FontAwesomeIcon icon={feature[1]} className="nav_icon" />
+                                    <span className="nav_name">{feature[0]}</span>
                                 </a>
                             ))}
                         </div>

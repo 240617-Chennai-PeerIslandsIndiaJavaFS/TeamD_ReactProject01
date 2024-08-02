@@ -4,10 +4,27 @@ import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer'
 import Copyright from '../Footer/Copyright';
 import './Home.css'
+import { TopNav } from '../sampleHome/TopNav';
 
 
 function Home() {
     const [show, setShow] = useState(false);
+    const [user,setUser]=useState({
+      "user_id": 1,
+    "user_name": "User1",
+    "user_role": "ADMIN",
+    "email": "admin@gmail.com",
+    "password": "Admin@123", 
+    "phone": "+1-555-123-4561",
+    "manager_id": null,
+    "status": "Active"
+    })
+    const[navigateOptions,setNavigate]=useState({
+      "user":false,
+      "client":false,
+      "project":false,
+      "projectnum":-1
+    })
 
     const toggleNavbar = () => {
       setShow(!show);
@@ -17,9 +34,10 @@ function Home() {
       <div className="home">
         {/* <h1>Rev Task Management</h1> */}
         <div className='main'>
-          <Navbar show={show} toggleNavbar={toggleNavbar}/>
+          <Navbar show={show} user={user} setNavigate={setNavigate} toggleNavbar={toggleNavbar}/>
           <div className={`no-expand ${show ? 'content' : ''}`}>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur corrupti assumenda voluptates velit nisi modi fugit iure expedita? Praesentium repellendus placeat sint sed odio, esse aperiam. Quia accusantium accusamus facere totam fugiat molestiae qui at sit non sint quam esse dolores inventore earum nesciunt, dignissimos saepe, dolor quos beatae deleniti tempora eos nostrum! Eius sapiente, sed consectetur fuga incidunt alias nihil voluptate maxime cum expedita laborum esse porro qui corrupti voluptatem praesentium id, fugiat excepturi reprehenderit cumque quasi. Accusantium fuga aliquid nobis aspernatur nisi blanditiis atque illum sint quidem, adipisci obcaecati! Minima est veniam sunt libero vel incidunt ducimus aliquid?</p>
+            <TopNav options={navigateOptions}/>
+
           </div>
         </div>
         <div className={`${show ? 'content' : ''}`}>
