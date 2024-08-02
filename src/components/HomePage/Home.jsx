@@ -3,11 +3,14 @@ import { useState } from 'react';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer'
 import Copyright from '../Footer/Copyright';
+// import DisplayProject from '../DisplayProject/DisplayProject'
+import LoginPage from '../loginpage/LoginPage';
 import './Home.css'
 import { TopNav } from '../sampleHome/TopNav';
 
 
 function Home() {
+    // const type="USER"
     const [show, setShow] = useState(false);
     const [user,setUser]=useState({
       "user_id": 1,
@@ -40,10 +43,12 @@ function Home() {
 
           </div>
         </div>
+
         <div className={`${show ? 'content' : ''}`}>
           <Copyright/>
         </div>
-      </div>
+      </>     
+      
       
     );
 }

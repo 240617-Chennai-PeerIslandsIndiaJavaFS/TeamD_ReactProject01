@@ -1,12 +1,14 @@
-import './App.css';
-import { SampleHome } from './components/sampleHome/SampleHome';
+
+import { UserContextComponent } from './components/Context/UserContextComponent';
+import LoginPage from './components/loginpage/LoginPage';
 import Home from './components/HomePage/Home';
+import './App.css';
+
 function App() {
   return (
-    <div id='app'>
-      <Home></Home>
-    </div>
-
+    <UserContextComponent>
+      <Home/>
+    </UserContextComponent>
   );
 }
 export default App;
