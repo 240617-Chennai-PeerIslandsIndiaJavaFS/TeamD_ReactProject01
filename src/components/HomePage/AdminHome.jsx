@@ -1,15 +1,12 @@
 import React from 'react'
 import { useState } from 'react';
 import Navbar from '../Navbar/Navbar';
-import Footer from '../Footer/Footer'
-import Copyright from '../Footer/Copyright';
-// import DisplayProject from '../DisplayProject/DisplayProject'
-import LoginPage from '../loginpage/LoginPage';
+import { TopNav } from '../Navbar/TopNav';
+import DisplayMessages from '../messages/DisplayMessages';
 import './Home.css'
-import { TopNav } from '../sampleHome/TopNav';
 
 
-function Home() {
+function AdminHome() {
     // const type="USER"
     const [show, setShow] = useState(false);
     const [user,setUser]=useState({
@@ -22,12 +19,9 @@ function Home() {
     "manager_id": null,
     "status": "Active"
     })
-    const[navigateOptions,setNavigate]=useState({
-      "user":false,
-      "client":false,
-      "project":false,
-      "projectnum":-1
-    })
+    const[navigateOptions,setNavigate]=useState("default")
+
+
 
     const toggleNavbar = () => {
       setShow(!show);
@@ -40,17 +34,23 @@ function Home() {
           <Navbar show={show} user={user} setNavigate={setNavigate} toggleNavbar={toggleNavbar}/>
           <div className={`no-expand ${show ? 'content' : ''}`}>
             <TopNav options={navigateOptions}/>
+            {/* <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis sequi, vero quo fuga suscipit quia voluptatem iure eos nulla veniam delectus sint mollitia dolorum amet ipsum aliquam quos in? Quaerat!</p> */}
+         <div id="content">
+
+         </div>
+            <div>
+            </div>
 
           </div>
         </div>
 
         <div className={`${show ? 'content' : ''}`}>
-          <Copyright/>
+          {/* <Copyright/> */}
         </div>
-      </>     
+      </div>     
       
       
     );
 }
 
-export default Home
+export default AdminHome

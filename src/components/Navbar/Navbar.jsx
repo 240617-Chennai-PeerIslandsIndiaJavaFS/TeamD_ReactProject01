@@ -6,6 +6,18 @@ import { faClock } from '@fortawesome/free-regular-svg-icons';
 
 const Navbar = ({show,toggleNavbar,setNavigate}) => {
     const [activeLink, setActiveLink] = useState('');
+    // Context
+    const user= {
+        "user_id": 2,
+        "user_name": "User2",
+        "user_role": "MANAGER",
+        "email": "manager@gmail.com",
+        "password": "Manager@123", // Placeholder, replace with secure password hashing
+        "phone": "+1-555-123-4562",
+        "manager_id": null,
+        "status": "Inactive"
+      }
+    //  context
 
     const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
 
@@ -21,23 +33,34 @@ const Navbar = ({show,toggleNavbar,setNavigate}) => {
         setActiveLink(link);
     };
     const userOption=()=>{
-        setNavigate((data)=>{
-          return {...data,"user":true}
-        });
-
+        setNavigate("user");
     }
 
-    const admin = [
+    const clientOption=()=>{
+        setNavigate("client");
+    }
+
+    const projectOption=()=>{
+        setNavigate("project");
+    }
+    const viewProjects=()=>{
+        setNavigate("viewProjects")
+    }
+    let options;
+    if(user.user_role=="ADMIN"){
+    options = [
         ["Users",faUsers,userOption],
-        ["Clients" ,faClipboard,userOption],
-        ["Projects",faProjectDiagram,userOption],
+        ["Clients" ,faClipboard,clientOption],
+        ["Projects",faProjectDiagram,projectOption],
         ["Stats",faChartBar,userOption],
-     
-    ]
-    const commonOptions={
-        Message: [faEnvelope,userOption],
-        Settings: [faCog,userOption]
+       ]
     }
+    else{
+        options=[
+            ["View Projects",faProjectDiagram,viewProjects],
+        ]
+    }
+
 
     return (
         <>
@@ -64,7 +87,7 @@ const Navbar = ({show,toggleNavbar,setNavigate}) => {
                             <span className="nav_logo-name">RevTask</span>
                         </a>
                         <div className="nav_list">
-                            {admin.map((feature,idx) => (
+                            {options.map((feature,idx) => (
                                 <a
                                     href="#"
                                     className={`nav_link`}
@@ -77,6 +100,10 @@ const Navbar = ({show,toggleNavbar,setNavigate}) => {
                             ))}
                         </div>
                     </div>
+                    <a href="#" className="nav_link">
+                        <FontAwesomeIcon icon={faEnvelope} className="fa-rotate-180 nav_icon" data-bs-toggle="modal" data-bs-target="#staticBackdrop" />
+                        <span className="nav_name">Messages</span>
+                    </a>
                     <a href="#" className="nav_link">
                         <FontAwesomeIcon icon={faRightToBracket} className="fa-rotate-180 nav_icon" />
                         <span className="nav_name">SignOut</span>
