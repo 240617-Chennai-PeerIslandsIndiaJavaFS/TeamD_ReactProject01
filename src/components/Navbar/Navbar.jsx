@@ -4,8 +4,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faLayerGroup, faCircleUser, faRightToBracket, faUsers, faClipboard, faProjectDiagram, faChartBar, faEnvelope, faCog} from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 
-const Navbar = ({show,toggleNavbar}) => {
+const Navbar = ({show,toggleNavbar,setNavigate}) => {
     const [activeLink, setActiveLink] = useState('');
+    // Context
+    const user= {
+        "user_id": 2,
+        "user_name": "User2",
+        "user_role": "MANAGER",
+        "email": "manager@gmail.com",
+        "password": "Manager@123", // Placeholder, replace with secure password hashing
+        "phone": "+1-555-123-4562",
+        "manager_id": null,
+        "status": "Inactive"
+      }
+    //  context
 
     const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
 
@@ -20,15 +32,35 @@ const Navbar = ({show,toggleNavbar}) => {
     const handleLinkClick = (link) => {
         setActiveLink(link);
     };
+    const userOption=()=>{
+        setNavigate("user");
+    }
 
-    const icons = {
-        Users: faUsers,
-        Clients: faClipboard,
-        Projects: faProjectDiagram,
-        Stats: faChartBar,
-        Message: faEnvelope,
-        Settings: faCog
-    };
+    const clientOption=()=>{
+        setNavigate("client");
+    }
+
+    const projectOption=()=>{
+        setNavigate("project");
+    }
+    const viewProjects=()=>{
+        setNavigate("viewProjects")
+    }
+    let options;
+    if(user.user_role=="ADMIN"){
+    options = [
+        ["Users",faUsers,userOption],
+        ["Clients" ,faClipboard,clientOption],
+        ["Projects",faProjectDiagram,projectOption],
+        ["Stats",faChartBar,userOption],
+       ]
+    }
+    else{
+        options=[
+            ["View Projects",faProjectDiagram,viewProjects],
+        ]
+    }
+
 
     return (
         <>
@@ -55,19 +87,23 @@ const Navbar = ({show,toggleNavbar}) => {
                             <span className="nav_logo-name">RevTask</span>
                         </a>
                         <div className="nav_list">
-                            {['Users', 'Clients', 'Projects', 'Stats', 'Message', 'Settings'].map((link) => (
+                            {options.map((feature,idx) => (
                                 <a
                                     href="#"
-                                    className={`nav_link ${activeLink === link ? 'active' : ''}`}
-                                    key={link}
-                                    onClick={() => handleLinkClick(link)}
+                                    className={`nav_link`}
+                                    key={idx}
+                                    onClick={() => feature[2]()}
                                 >
-                                    <FontAwesomeIcon icon={icons[link]} className="nav_icon" />
-                                    <span className="nav_name">{link}</span>
+                                    <FontAwesomeIcon icon={feature[1]} className="nav_icon" />
+                                    <span className="nav_name">{feature[0]}</span>
                                 </a>
                             ))}
                         </div>
                     </div>
+                    <a href="#" className="nav_link">
+                        <FontAwesomeIcon icon={faEnvelope} className="fa-rotate-180 nav_icon" data-bs-toggle="modal" data-bs-target="#staticBackdrop" />
+                        <span className="nav_name">Messages</span>
+                    </a>
                     <a href="#" className="nav_link">
                         <FontAwesomeIcon icon={faRightToBracket} className="fa-rotate-180 nav_icon" />
                         <span className="nav_name">SignOut</span>

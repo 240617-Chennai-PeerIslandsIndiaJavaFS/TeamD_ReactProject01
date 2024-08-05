@@ -1,13 +1,16 @@
 
 import { UserContextComponent } from './components/Context/UserContextComponent';
 import LoginPage from './components/loginpage/LoginPage';
-import Home from './components/HomePage/Home';
+import DisplayMessages from './components/messages/DisplayMessages';
+import './components/messages/MessageStyles.css'; // Import the CSS file
 import './App.css';
+import AdminHome from './components/HomePage/AdminHome';
+
 
 function App() {
   return (
     <UserContextComponent>
-      <Home/>
+      <AdminHome/>
     </UserContextComponent>
   );
 }

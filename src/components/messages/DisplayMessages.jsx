@@ -23,7 +23,7 @@ const DisplayMessages = () => {
     };
 
     return (
-        <div className="container mt-5">
+        <div className="container mt-5" style={{display:"block"}}>
             <div className="card card-custom" style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
                 <div className="card-body">
                     <h2 className="card-title card-title-custom mb-4">Messages</h2>
