@@ -17,7 +17,7 @@ function LoginPage() {
         try{
             const response = await axios.get(`http://localhost:3001/users?email=${email}&password=${password}`);
             const userData = response.data;       
-            if(userData==0){
+            if(userData.length>1){
                 alert("Invalid credentials");
                 return;
             }

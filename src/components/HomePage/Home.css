@@ -6,8 +6,6 @@
 .all-component-container{
     display: inline-block;
     width: 400px;
-    height: 100vh;
-    border: 6px solid black;
     margin-top: 0.5rem;
     margin-left: 3rem;
 }
@@ -15,13 +13,6 @@
 .move{
     margin-left:7.5rem;
 }
-
-/* @media screen and (min-width:425px){
-    .all-component-container{
-        margin-left: 2rem;
-    }
-} */
-
 
 @media screen and (min-width:425px){
     .all-component-container{

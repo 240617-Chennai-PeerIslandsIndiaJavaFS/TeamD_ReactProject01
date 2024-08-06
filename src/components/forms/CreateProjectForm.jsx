@@ -32,6 +32,7 @@ const CreateProjectForm = () => {
         try {
             const response = await axios.post('http://localhost:3001/projects', project);
             console.log('Project created:', response.data);
+            alert("Project Created successfully")
         } catch (error) {
             console.error('Error creating project:', error);
         }
@@ -78,7 +79,7 @@ const CreateProjectForm = () => {
                         <option value="">Select Client</option>
                         {clients.map((client) => (
                             <option key={client.id} value={client.id}>
-                                {client.name}
+                                {client.company_name}
                             </option>
                         ))}
                     </select>

@@ -6,10 +6,9 @@ import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { userContext } from '../Context/UserContextComponent';
 import { Link } from 'react-router-dom';
 
-const Navbar = ({ show, toggleNavbar, setNavigate }) => {
+const Navbar = ({ show, toggleNavbar, setNavigate,adminContext}) => {
   const [activeLink, setActiveLink] = useState('');
 
-  // Correctly use the context with useContext
   const { userDetail, setUserDetail, projects, setProjects } = useContext(userContext);
 
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
@@ -41,17 +40,19 @@ const Navbar = ({ show, toggleNavbar, setNavigate }) => {
     setNavigate('viewProjects');
   };
 
+
+
   let options;
   if (userDetail.user_role === 'ADMIN') {
     options = [
       ['Users', faUsers, userOption],
       ['Clients', faClipboard, clientOption],
       ['Projects', faProjectDiagram, projectOption],
-      ['Stats', faChartBar, userOption],
     ];
   } else {
     options = [
       ['View Projects', faProjectDiagram, viewProjects],
+      ['Stats', faChartBar, userOption]
     ];
   }
 
@@ -93,8 +94,12 @@ const Navbar = ({ show, toggleNavbar, setNavigate }) => {
               ))}
             </div>
           </div>
-          <a href="#" className="nav_link">
-            <FontAwesomeIcon icon={faEnvelope} className="fa-rotate-180 nav_icon" data-bs-toggle="modal" data-bs-target="#staticBackdrop" />
+          <a href="#" className="nav_link" onClick={()=>{adminContext("analysis")}}>
+            <FontAwesomeIcon icon={faProjectDiagram} className="fa-rotate-180 nav_icon"/>
+            <span className="nav_name">Statistics</span>
+          </a>
+          <a href="#" className="nav_link" onClick={()=>{adminContext("messages")}}>
+            <FontAwesomeIcon icon={faEnvelope} className="fa-rotate-180 nav_icon" />
             <span className="nav_name">Messages</span>
           </a>
           <Link to="/" className="nav_link">
