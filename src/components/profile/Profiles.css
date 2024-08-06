@@ -1,0 +1,50 @@
+
+.profile-box {
+    background-color: #39B4F3;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color: white; /* Ensure text is readable on the blue background */
+}
+
+.user-name {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.user-role {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.user-description {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+.contact-info p {
+    margin-bottom: 0.5rem;
+}
+
+.logout-button {
+    text-align: left;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .user-name {
+        font-size: 2rem;
+    }
+
+    .user-role {
+        font-size: 1rem;
+    }
+
+    .user-description {
+        font-size: 0.9rem;
+    }
+
+    .logout-button {
+        text-align: center;
+    }
+}
