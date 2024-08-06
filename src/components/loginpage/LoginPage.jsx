@@ -3,22 +3,27 @@ import login from '../../images/Mobile login-amico.png'
 import { userContext } from '../Context/UserContextComponent';
 import "./LoginPage.css"
 import axios from 'axios';
-
+import { Link,useNavigate} from 'react-router-dom';
 function LoginPage() {
 
     const {userDetail,setUserDetail,projects,setProjects} = useContext(userContext);
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
+    const navigate = useNavigate();
+
 
     const handleSubmit = async(e)=>{
         e.preventDefault();
-        console.log(email,password);
         try{
             const response = await axios.get(`http://localhost:3001/users?email=${email}&password=${password}`);
-            const userData = response.data;
+            const userData = response.data;       
+            if(userData==0){
+                alert("Invalid credentials");
+                return;
+            }
             setUserDetail(userData);
             fetchProjects(userData);
-            // console.log(response.data);
+            navigate("/home")
         }
         catch(err){
             console.log(err);
@@ -37,13 +42,11 @@ function LoginPage() {
         if(url){
             try{
                 const projectResponse = await axios.get(url);
-                console.log("API Response:", typeof(projectResponse.data));
+                // console.log("API Response:", typeof(projectResponse.data));
                 if (Array.isArray(projectResponse.data)) {
-                    console.log("Array it is")
+                    // console.log("Array it is")
                     setProjects(projectResponse.data);
                 }
-                // setProjects(projectResponse.data);
-                // console.log(projectResponse.data);
             }
             catch(err){
                 console.log(err);
@@ -72,11 +75,10 @@ function LoginPage() {
                     <div className="form-group terms">
                         <input type="checkbox" name="terms" id="terms" />
                         <label htmlFor="terms">Term & Conditions</label>
-                        <a href="#" className='forgot-password'>Forgot Password</a>
+                        <Link to="/reset" className='forgot-password'>Forgot Password</Link>
                     </div>
                     <button type="submit" className="login-button">Log in</button>
                 </form>
-                <p className='signup-prompt'>Don't have an account ? <a href="#">Sign up for Free</a></p>
             </div>
         </div>
         
