@@ -17,7 +17,8 @@ function App() {
           <Route path='/' exact element={<LandingPage/>}/>
           <Route path="/login" exact element={<LoginPage />} />
           <Route path="/reset" exact element={<ForgotPage></ForgotPage>} />
-          <Route path='/home' exact element={<AdminHome></AdminHome>}/>
+          {/* <Route path='/home' exact element={<AdminHome></AdminHome>}/> */}
+          <Route path='/home' exact element={<Home/>}/>
       </Routes>
     </Router>
     </UserContextComponent>

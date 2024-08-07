@@ -33,11 +33,13 @@ function LoginPage() {
     }
 
     const fetchProjects = async(userData)=>{
+        // console.log(userData);
         let url;
         if(userData.user_role === "ADMIN")
             url = "http://localhost:3001/projects";
         else if(userData.user_role === "MANAGER" || userData.user_role === "ASSOCIATE")
-            url = `http://localhost:3001/projects?manager=${userData.user_name}`;
+            // url = `http://localhost:3001/projects?manager=${userData.user_name}`;
+            url = `http://localhost:3001/projects?manager=User2`;
 
         if(url){
             try{
@@ -46,6 +48,7 @@ function LoginPage() {
                 if (Array.isArray(projectResponse.data)) {
                     // console.log("Array it is")
                     setProjects(projectResponse.data);
+                    // console.log(projectResponse.data);
                 }
             }
             catch(err){
