@@ -4,6 +4,7 @@ import './ForgotPage1.css';
 import ResetButton from '../buttons/ResetButton';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import image from '../../images/forget-password-image.png';
+import { Link } from 'react-router-dom';
 
 const ForgotPage = () => {
     const handleResetClick = () => {
@@ -33,7 +34,7 @@ const ForgotPage = () => {
                             <div className="form-group">
                                 <input type="password" className="form-control" placeholder="Confirm password" required />
                             </div>
-                            <ResetButton onClick={handleResetClick} value="Reset" />
+                            <Link className='btn btn-primary' to="/" value="Reset">Reset</Link>
                         </form>
                     </div>
                 </div>
@@ -41,5 +42,4 @@ const ForgotPage = () => {
         </div>
     );
 };
-
 export default ForgotPage;

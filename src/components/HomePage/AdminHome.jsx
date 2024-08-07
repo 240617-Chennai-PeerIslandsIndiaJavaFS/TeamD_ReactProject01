@@ -14,6 +14,9 @@ import DisplayClients from '../DisplayClients/DisplayClients';
 import ProjectNavbar from '../projectnav/ProjectNavbar';
 import ProjectCard from '../DisplayProject/ProjectCard';
 import ClientRow from '../DisplayClients/ClientRow';
+import AddTeamMember from '../addmember/AddTeamMember';
+import CreateTaskForm from '../forms/CreateTaskForm';
+import ProfilePage from '../profile/ProfilePage';
 
 function AdminHome() {
   const { userDetail, projects } = useContext(userContext);
@@ -76,6 +79,7 @@ function AdminHome() {
                                   <DisplayClients />
                                   : adminContext === "profile" ?
                                     <>
+                                    <ProfilePage user={userDetail}></ProfilePage>
                                     </>
                                     : adminContext > -1 ?
                                       <ProjectNavbar projectDetails={setProjectDetails} projectData={projects[adminContext]} />
@@ -92,6 +96,9 @@ function AdminHome() {
                   </>
                   :projectDetails=="team"? <>
                   <h1>Team selected</h1>
+                  <AddTeamMember project={projects[adminContext]}/>
+                  </>:projectDetails==="createTask"?<>
+                  <CreateTaskForm/>
                   </>:<></>}
             </div>
           </div>

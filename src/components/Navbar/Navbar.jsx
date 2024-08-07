@@ -52,7 +52,6 @@ const Navbar = ({ show, toggleNavbar, setNavigate,adminContext}) => {
   } else {
     options = [
       ['View Projects', faProjectDiagram, viewProjects],
-      ['Stats', faChartBar, userOption]
     ];
   }
 
@@ -66,7 +65,7 @@ const Navbar = ({ show, toggleNavbar, setNavigate,adminContext}) => {
           <FontAwesomeIcon icon={faClock} className="clock-icon" />
           {currentTime}
         </div>
-        <div className="profile">
+        <div className="profile" style={{cursor:"pointer"}} onClick={()=>{adminContext("profile")}}>
           <div className="header_img" onClick={()=>adminContext("profile")}>
             <FontAwesomeIcon icon={faCircleUser} />
           </div>
