@@ -1,0 +1,27 @@
+.column {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+}
+
+.task-list {
+    background-color: #f8f8f8;
+    border-radius: 4px;
+    padding: 10px;
+    flex-grow: 1;
+    min-height: 100px;
+}
+
+.milestone-header {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+} 
+
+
