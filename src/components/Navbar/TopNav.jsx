@@ -4,6 +4,7 @@ import { useContext } from 'react';
 
 export const TopNav = ({options,project,adminContext}) => {
   const { userDetail, setUserDetail, projects, setProjects} = useContext(userContext);
+  let count=0;
 
   // Data from context
  
@@ -13,7 +14,7 @@ export const TopNav = ({options,project,adminContext}) => {
     <div>
     <nav class="top-nav navbar bg-body-tertiary">
   <form class="container-fluid justify-content-start">
-    {console.log(options)}
+    {/* {console.log(options)} */}
     {options=="user"?(
         <>
             <button class="btn btn-outline-success me-2" type="button" onClick={()=>{adminContext("createUser")}}>Create User</button>
@@ -36,13 +37,19 @@ export const TopNav = ({options,project,adminContext}) => {
     )
     :options=="viewProjects"?(
       <>
-      {projects.map(data=>{
-        return(
-          <>
-          <button class="btn btn-outline-warning me-2" type="button">{data.project_name}</button>
-          </>
-        )
+  {projects.map((data, index) => {
+    return (
+        <button
+            key={index}
+            className="btn btn-outline-warning me-2"
+            type="button"
+            onClick={() => adminContext(index)}
+        >
+            {data.project_name}
+        </button>
+    );
 })}
+
       </>
     ):(
       <p>Welcome to Rev Task Management System</p>

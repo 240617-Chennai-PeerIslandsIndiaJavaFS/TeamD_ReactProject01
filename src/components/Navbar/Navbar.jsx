@@ -67,10 +67,10 @@ const Navbar = ({ show, toggleNavbar, setNavigate,adminContext}) => {
           {currentTime}
         </div>
         <div className="profile">
-          <div className="header_img">
+          <div className="header_img" onClick={()=>adminContext("profile")}>
             <FontAwesomeIcon icon={faCircleUser} />
           </div>
-          <p className="profile-name">Admin</p>
+          <p className="profile-name">{userDetail.user_name}</p>
         </div>
       </header>
       <div className={`l-navbar ${show ? 'show' : ''}`} id="nav-bar">
