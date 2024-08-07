@@ -1,4 +1,4 @@
-
+/* 
 * {
     box-sizing: border-box;
     margin: 0;
@@ -9,7 +9,7 @@ body, html {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-}
+} */
 
 .home-container {
     display: flex;
@@ -18,11 +18,11 @@ body, html {
     align-items: center;
     padding: 40px 20px;
     text-align: center;
-    min-height: 100vh; /* Ensure container takes at least full viewport height */
+    /* min-height: 100vh; Ensure container takes at least full viewport height */
     padding-top: 60px; /* Add padding at the top to avoid content being hidden under the navbar */
 }
 
-.navbar {
+.landing {
     background-color: #007bff; /* Blue background */
     color: #ffffff; /* White text color */
     padding: 10px 20px; /* Padding around the text */

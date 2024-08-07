@@ -3,6 +3,7 @@ import React from 'react';
 import './LandingPage.css';
 import logo from '../../images/logo.png'; // Adjust paths if needed
 import humanImage from '../../images/homeimage.png'; // Adjust paths if needed
+import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
     const handleButtonClick = () => {
@@ -11,7 +12,7 @@ const LandingPage = () => {
 
     return (
         <div className="home-container">
-            <div className="navbar">
+            <div className="navbar landing">
                 <span className="navbar-title">REV TASK MANAGEMENT</span>
             </div>
             <div className="logo-section">
@@ -20,7 +21,7 @@ const LandingPage = () => {
                 <p className="description">
                     RevTaskManagement streamlines task organization and enhances productivity for work and personal tasks. It offers efficient task delegation and built-in effort estimation to help users plan and manage tasks effectively.
                 </p>
-                <button className="start-button" onClick={handleButtonClick}>Get Started</button>
+                <Link to="/login" className="start-button" onClick={handleButtonClick}>Get Started</Link>
             </div>
             <div className="image-section">
                 <img src={humanImage} alt="Human Illustration" />

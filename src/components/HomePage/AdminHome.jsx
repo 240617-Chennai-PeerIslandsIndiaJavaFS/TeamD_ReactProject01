@@ -87,7 +87,7 @@ function AdminHome() {
                                       <></>
             }
             <div id='project'>
-              {projectDetails === "default" || projectDetails === "task" ?
+              {projectDetails === "default" && adminContext>-1 ?
                 <><h1>Drag and Drop</h1></>
                 : projectDetails === "details" ?
                   <>
