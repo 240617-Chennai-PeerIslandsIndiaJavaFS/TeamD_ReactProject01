@@ -1,0 +1,30 @@
+
+.team-container {
+    padding: 20px;
+}
+
+.team-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.team-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-member-item {
+    margin-top: 10px;
+}
+
+.add-member-form {
+    margin-top: 20px;
+}
+
+.add-member-form input {
+    margin-right: 10px;
+    padding: 5px;
+}
