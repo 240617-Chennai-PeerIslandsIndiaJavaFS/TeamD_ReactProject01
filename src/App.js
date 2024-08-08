@@ -7,6 +7,7 @@ import LandingPage from './components/landingpage/LandingPage';
 import ForgotPage from './components/forgotpasswordpage/ForgotPage';
 import AdminHome from './components/HomePage/AdminHome';
 import './App.css';
+import TaskBoard from './components/TaskComponent/TaskBoard';
 
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
           <Route path="/login" exact element={<LoginPage />} />
           <Route path="/reset" exact element={<ForgotPage></ForgotPage>} />
           {/* <Route path='/home' exact element={<AdminHome></AdminHome>}/> */}
-          <Route path='/home' exact element={<Home/>}/>
+          <Route path='/home' exact element={<AdminHome/>}/>
       </Routes>
     </Router>
     </UserContextComponent>

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { userContext } from '../Context/UserContextComponent';
 import { useContext } from 'react';
 
-export const TopNav = ({options,project,adminContext}) => {
+export const TopNav = ({options,project,adminContext,projectDetails}) => {
   const { userDetail, setUserDetail, projects, setProjects} = useContext(userContext);
   let count=0;
 
@@ -43,7 +43,10 @@ export const TopNav = ({options,project,adminContext}) => {
             key={index}
             className="btn btn-outline-warning me-2"
             type="button"
-            onClick={() => adminContext(index)}
+            onClick={() =>{ 
+              adminContext(index)
+              projectDetails("task")
+            }}
         >
             {data.project_name}
         </button>

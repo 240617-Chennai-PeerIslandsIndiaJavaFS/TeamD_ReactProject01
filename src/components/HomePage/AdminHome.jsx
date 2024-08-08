@@ -17,6 +17,7 @@ import ClientRow from '../DisplayClients/ClientRow';
 import AddTeamMember from '../addmember/AddTeamMember';
 import CreateTaskForm from '../forms/CreateTaskForm';
 import ProfilePage from '../profile/ProfilePage';
+import TaskBoard from '../TaskComponent/TaskBoard';
 
 function AdminHome() {
   const { userDetail, projects } = useContext(userContext);
@@ -52,7 +53,7 @@ function AdminHome() {
         <Navbar show={show} setNavigate={setNavigate} toggleNavbar={toggleNavbar} adminContext={setAdminContext} />
         <div className={`no-expand ${show ? 'content' : ''}`}>
           <div className={`all-component-container ${show ? 'move' : ''}`}>
-            <TopNav options={navigateOptions} adminContext={setAdminContext} />
+            <TopNav options={navigateOptions} adminContext={setAdminContext} projectDetails={setProjectDetails} />
             {adminContext === "default" || adminContext === "analysis" ?
               <div>
                 <Analysis title={taskTitle} data={taskData} />
@@ -87,9 +88,9 @@ function AdminHome() {
                                       <></>
             }
             <div id='project'>
-              {projectDetails === "default" && adminContext>-1 ?
-                <><h1>Drag and Drop</h1></>
-                : projectDetails === "details" ?
+              {projectDetails === "task" && adminContext>-1 ?                
+              <TaskBoard project={adminContext}></TaskBoard>
+              : projectDetails === "details" ?
                   <>
                     <ProjectCard project={projects[adminContext]} />
                     <ClientRow client={projects[adminContext].client} />
