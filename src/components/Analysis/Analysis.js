@@ -12,7 +12,7 @@ export const Analysis = ({title,data}) => {
       };
     
   return (
-    <div style={{height:"500px"}}>
+    <div style={{height:"500px",width:"100%"}}>
         <Chart
         chartType="PieChart"
         width="100%"

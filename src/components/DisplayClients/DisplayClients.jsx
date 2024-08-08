@@ -5,7 +5,6 @@ import './DisplayClients.css';
 
 function DisplayClients() {
     const [clients, setClients] = useState([]);
-    const [show, setShow] = useState(false);
 
     const fetchClients = async () => {
         try {
@@ -16,16 +15,14 @@ function DisplayClients() {
         }
     };
 
-    const toggleDisplay = () => {
-        setShow(!show);
-        if (!show) fetchClients();
-    };
+   useEffect(()=>{
+    fetchClients()
+   },[clients])
 
     return (
         <>
-            <button onClick={toggleDisplay} className="display-client-button">Display Clients</button>
             <div>
-                {show && (
+               
                     <div className="clients-container">
                         {Array.isArray(clients) && clients.length > 0 ? (
                             clients.map((client) => <ClientRow key={client.client_id} client={client} />)
@@ -33,7 +30,7 @@ function DisplayClients() {
                             <p>No clients available.</p>
                         )}
                     </div>
-                )}
+              
             </div>
         </>
     );

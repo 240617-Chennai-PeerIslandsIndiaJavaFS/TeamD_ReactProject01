@@ -83,7 +83,7 @@ const CreateTaskForm = () => {
                         {users.length > 0 ? (
                             users.map((user) => (
                                 <option key={user.id} value={user.id}>
-                                    {user.name}
+                                    {user.user_name}
                                 </option>
                             ))
                         ) : (

@@ -6,8 +6,6 @@
 .all-component-container{
     display: inline-block;
     width: 400px;
-    height: 100vh;
-    border: 6px solid black;
     margin-top: 0.5rem;
     margin-left: 3rem;
 }

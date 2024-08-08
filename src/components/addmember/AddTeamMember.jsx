@@ -11,8 +11,10 @@ const AddTeamMember = ({ project }) => {
         { user_id: 5, user_name: "User 5" },
         { user_id: 6, user_name: "User 6" }
     ];
+    console.log(project.team.team_members);
+    
 
-    const [members, setMembers] = useState(initialUsers);
+    const [members, setMembers] = useState(project.team.team_members);
     const [newMemberName, setNewMemberName] = useState('');
     const [showAddForm, setShowAddForm] = useState(false);
 
@@ -48,7 +50,7 @@ const AddTeamMember = ({ project }) => {
                 {project?.manager?.user_name && (
                     <li key={project.manager.user_id} className="team-item">
                         <span>{project.manager.user_name}</span>
-                        <ResetButton onClick={() => handleChatClick(project.manager.user_name)} value="Chat" />
+                        <button className='btn btn-primary' onClick={() => handleChatClick(project.manager.user_name)} value="Chat">Chat</button>
                     </li>
                 )}
 
