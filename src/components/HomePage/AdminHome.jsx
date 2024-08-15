@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import Navbar from '../Navbar/Navbar';
 import { TopNav } from '../Navbar/TopNav';
-import './Home.css'
 import { userContext } from '../Context/UserContextComponent';
 import { Analysis } from '../Analysis/Analysis';
 import DisplayMessages from '../messages/DisplayMessages';
@@ -18,6 +17,8 @@ import AddTeamMember from '../addmember/AddTeamMember';
 import CreateTaskForm from '../forms/CreateTaskForm';
 import ProfilePage from '../profile/ProfilePage';
 import TaskBoard from '../TaskComponent/TaskBoard';
+import Modal from '../Modal/Modal';
+import './Home.css'
 
 function AdminHome() {
   const { userDetail, projects } = useContext(userContext);
@@ -25,6 +26,14 @@ function AdminHome() {
   const [navigateOptions, setNavigate] = useState("default");
   const [adminContext, setAdminContext] = useState("default");
   const [projectDetails, setProjectDetails] = useState("default");
+
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState("");
+
+  const openModal = (content) => {
+    setModalContent(content);
+    setModalOpen(true);
+  };
 
   const toggleNavbar = () => {
     setShow(!show);
@@ -62,7 +71,7 @@ function AdminHome() {
               : adminContext === "messages" ?
                 <DisplayMessages />
                 : adminContext === "createUser" ?
-                  <CreateUserForm />
+                  <button onClick={() => openModal(<CreateUserForm />)}> Open Create User Form </button>
                   : adminContext === "updateUser" ?
                     <CreateUserForm /> : adminContext === "viewUser" ?
                       <DisplayUser />
@@ -105,6 +114,13 @@ function AdminHome() {
           </div>
         </div>
       </div>
+
+      <Modal 
+        isOpen={isModalOpen} 
+        onClose={() => setModalOpen(false)} 
+        content={modalContent} 
+      />
+
       <div className={`${show ? 'content' : ''}`}>
         {/* <Copyright/> */}
       </div>
