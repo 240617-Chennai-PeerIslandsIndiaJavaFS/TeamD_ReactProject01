@@ -89,7 +89,9 @@ const CreateClientForm = () => {
                         required
                     />
                 </div>
-                <button type="submit" className="btn btn-primary">Create Client</button>
+                <div className="button-container">
+                    <button type="submit" className="btn btn-primary">Create Client</button>
+                </div>
             </form>
         </div>
     );
