@@ -1,100 +1,150 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import './Form.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './Form.css'; // Import your custom CSS
 
-const CreateTaskForm = () => {
-    const [task, setTask] = useState({
-        title: '',
-        description: '',
-        userId: ''
+const TaskForm = () => {
+  const [formData, setFormData] = useState({
+    task_name: '',
+    task_desc: '',
+    start_date: '',
+    end_date: '',
+    assigned_users: [],
+    user_dropdown: ''
+  });
+
+  const allUsers = [
+    'User 1', 'User 2', 'User 3', 'User 4', 'User 5',
+    'User 6', 'User 7', 'User 8', 'User 9', 'User 10',
+  ];
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
     });
-    const [users, setUsers] = useState([]);
+  };
 
-    useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                const response = await axios.get('http://localhost:3001/users');
-                if (Array.isArray(response.data)) {
-                    setUsers(response.data);
-                } else {
-                    console.error('Expected an array of users, got:', response.data);
-                }
-            } catch (error) {
-                console.error('Error fetching users:', error);
-            }
-        };
-        fetchUsers();
-    }, []);
+  const handleUserSelect = (user) => {
+    setFormData(prevState => {
+      const isUserSelected = prevState.assigned_users.includes(user);
+      return {
+        ...prevState,
+        assigned_users: isUserSelected
+          ? prevState.assigned_users.filter(u => u !== user)
+          : [...prevState.assigned_users, user],
+        user_dropdown: ''
+      };
+    });
+  };
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setTask({ ...task, [name]: value });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const dataToSubmit = {
+      ...formData,
+      assigned_users: formData.assigned_users
     };
+    try {
+      const response = await axios.post('http://localhost:3001/tasks', dataToSubmit);
+      console.log('Task created successfully:', response.data);
+    } catch (error) {
+      console.error('Error creating task:', error);
+    }
+  };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('http://localhost:3001/tasks', task);
-            console.log('Task created:', response.data);
-        } catch (error) {
-            console.error('Error creating task:', error);
-        }
-    };
-
-    return (
-        <div className="container mt-5">
-            <form onSubmit={handleSubmit} className="form">
-                <h2>Create Task</h2>
-                <div className="mb-3">
-                    <label htmlFor="title" className="form-label">Title</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="title"
-                        name="title"
-                        value={task.title}
-                        onChange={handleChange}
-                        required
-                    />
+  return (
+    <div className="container mt-5">
+      <div className="row justify-content-center">
+        <div className="col-md-10">
+          <div className="form">
+            <h2>Create Task</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="task_name">Task Name</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="task_name"
+                  name="task_name"
+                  value={formData.task_name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="task_desc">Task Description</label>
+                <textarea
+                  className="form-control"
+                  id="task_desc"
+                  name="task_desc"
+                  value={formData.task_desc}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="start_date">Start Date</label>
+                <input
+                  type="date"
+                  className="form-control"
+                  id="start_date"
+                  name="start_date"
+                  value={formData.start_date}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="end_date">End Date</label>
+                <input
+                  type="date"
+                  className="form-control"
+                  id="end_date"
+                  name="end_date"
+                  value={formData.end_date}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="assigned_users">Assign Users</label>
+                <div className="d-flex">
+                  <select
+                    id="user_dropdown"
+                    className="form-control"
+                    value={formData.user_dropdown}
+                    onChange={(e) => handleUserSelect(e.target.value)}
+                  >
+                    <option value="">Select User</option>
+                    {allUsers.map(user => (
+                      <option key={user} value={user}>
+                        {user}
+                      </option>
+                    ))}
+                  </select>
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="description" className="form-label">Description</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="description"
-                        name="description"
-                        value={task.description}
-                        onChange={handleChange}
-                        required
-                    />
+                <div className="mt-2">
+                  {formData.assigned_users.length > 0 && (
+                    <div>
+                      <strong>Selected Users:</strong>
+                      <ul>
+                        {formData.assigned_users.map(user => (
+                          <li key={user}>{user}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="userId" className="form-label">Assign To</label>
-                    <select
-                        className="form-select"
-                        id="userId"
-                        name="userId"
-                        value={task.userId}
-                        onChange={handleChange}
-                        required
-                    >
-                        <option value="">Select User</option>
-                        {users.length > 0 ? (
-                            users.map((user) => (
-                                <option key={user.id} value={user.id}>
-                                    {user.user_name}
-                                </option>
-                            ))
-                        ) : (
-                            <option value="" disabled>Loading users...</option>
-                        )}
-                    </select>
-                </div>
-                <button type="submit" className="btn btn-primary">Create Task</button>
+              </div>
+              <div className="text-center">
+                <button type="submit" className="btn btn-primary btn-sm" style={{ width: '50%' }}>Create Task</button>
+              </div>
             </form>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
-export default CreateTaskForm;
+export default TaskForm;
