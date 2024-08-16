@@ -40,18 +40,34 @@ const Navbar = ({ show, toggleNavbar, setNavigate,adminContext}) => {
     setNavigate('viewProjects');
   };
 
+  const statsOption=()=>{
+    console.log("clicked stats option");
+    adminContext("analysis");
+  }
+
+  const messageOption=()=>{
+    adminContext("messages");
+  }
+
+  useEffect(()=>{
+
+  } ,[userDetail])
 
 
   let options;
-  if (userDetail.user_role === 'ADMIN') {
+  if (userDetail.role === 'ADMIN') {
     options = [
       ['Users', faUsers, userOption],
       ['Clients', faClipboard, clientOption],
       ['Projects', faProjectDiagram, projectOption],
+      ["statistics",faChartBar,statsOption],
+      ['messages',faEnvelope,messageOption]
     ];
   } else {
     options = [
       ['View Projects', faProjectDiagram, viewProjects],
+      ["statistics",faChartBar,statsOption],
+      ['messages',faEnvelope,messageOption]
     ];
   }
 
@@ -93,14 +109,6 @@ const Navbar = ({ show, toggleNavbar, setNavigate,adminContext}) => {
               ))}
             </div>
           </div>
-          <a href="#" className="nav_link" onClick={()=>{adminContext("analysis")}}>
-            <FontAwesomeIcon icon={faProjectDiagram} className="fa-rotate-180 nav_icon"/>
-            <span className="nav_name">Statistics</span>
-          </a>
-          <a href="#" className="nav_link" onClick={()=>{adminContext("messages")}}>
-            <FontAwesomeIcon icon={faEnvelope} className="fa-rotate-180 nav_icon" />
-            <span className="nav_name">Messages</span>
-          </a>
           <Link to="/" className="nav_link">
             <FontAwesomeIcon icon={faRightToBracket} className="fa-rotate-180 nav_icon" />
             <span className="nav_name">SignOut</span>

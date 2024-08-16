@@ -3,7 +3,7 @@ import login from '../../images/Mobile login-amico.png'
 import { userContext } from '../Context/UserContextComponent';
 import "./LoginPage.css"
 import axios from 'axios';
-import { Link,useNavigate} from 'react-router-dom';
+import { json, Link,useNavigate} from 'react-router-dom';
 function LoginPage() {
 
     const {userDetail,setUserDetail,projects,setProjects} = useContext(userContext);
@@ -12,22 +12,31 @@ function LoginPage() {
     const navigate = useNavigate();
 
 
-    const handleSubmit = async(e)=>{
+    const handleSubmit = (e)=>{
         e.preventDefault();
-        try{
-            const response = await axios.get(`http://localhost:3001/users?email=${email}&password=${password}`);
-            const userData = response.data;       
-            if(userData.length>1){
-                alert("Invalid credentials");
-                return;
-            }
-            setUserDetail(userData);
-            fetchProjects(userData);
-            navigate("/home")
-        }
-        catch(err){
-            console.log(err);
-        }
+            const response = axios.get(`http://localhost:8080/api/employee/login?email=${email}&password=${password}`).then((response)=>{
+                if(response.data.status==202){
+                    localStorage.setItem("user",JSON.stringify(response.data.data));
+                    setUserDetail(JSON.parse(localStorage.getItem("user")))
+                    navigate("/home")
+                }
+                else{
+                alert("In valid credentials: "+localStorage.data.status)
+                }
+            })
+            .catch((err)=>{
+                alert("In valid credentials from error")
+                console.log(err.response.data);
+                
+            })
+            // console.log(userData);
+            
+            
+            // localStorage.setItem(data,us)
+            // setUserDetail(userData);
+            // fetchProjects(userData);
+            // navigate("/home")
+        
         setEmail("");
         setPassword("");
     }
