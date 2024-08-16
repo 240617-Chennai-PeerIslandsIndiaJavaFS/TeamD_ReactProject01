@@ -2,14 +2,14 @@ import React from 'react';
 import './ClientRow.css';
 
 function ClientRow({ client }) {
-    const { company_name, point_of_contact, contact_email, contact_number, address } = client;
+    const { companyName, pointOfContact, email, contact, address } = client;
     return (
         <div className="client-row">
             <div className="client-info">
-                <h6>{company_name}</h6>
-                <p>{point_of_contact}</p>
-                <p>{contact_email}</p>
-                <p>{contact_number}</p>
+                <h6>{companyName}</h6>
+                <p>{pointOfContact}</p>
+                <p>{email}</p>
+                <p>{contact}</p>
                 <p>{address}</p>
             </div>
         </div>

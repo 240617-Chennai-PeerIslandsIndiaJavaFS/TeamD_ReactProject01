@@ -107,3 +107,43 @@
     margin-bottom: 5px;
 }
 
+.search-section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 80%; 
+    margin: auto;
+    margin-bottom: 20px; 
+}
+
+.search-section input[type="text"] {
+    flex: 1; /* Allow the input to stretch and take up available space */
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px 0 0 5px; /* Rounded corners for the left side */
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+    box-sizing: border-box; /* Ensure padding is included in the input width */
+}
+
+.search-section button {
+    width: 120px; /* Fixed width for the button */
+    padding: 10px 0; /* Adjust padding for the button */
+    background-color: #007bff;
+    color: #fff;
+    border: 1px solid #007bff;
+    border-radius: 0 5px 5px 0; /* Rounded corners for the right side */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    box-sizing: border-box; /* Ensure padding is included in the button width */
+}
+
+.search-section button:hover {
+    background-color: #0056b3;
+}
+
+
+
+
