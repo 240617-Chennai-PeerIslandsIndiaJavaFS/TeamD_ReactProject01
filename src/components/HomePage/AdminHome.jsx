@@ -8,7 +8,7 @@ import CreateUserForm from '../forms/CreateUserForm';
 import DisplayUser from '../DisplayUsers/DisplayUser';
 import CreateProjectForm from '../forms/CreateProjectForm';
 import DisplayProject from '../DisplayProject/DisplayProject';
-import CreateClientForm from '../forms/CreateClientForm';
+import ClientForm from '../forms/ClientForm';
 import DisplayClients from '../DisplayClients/DisplayClients';
 import ProjectNavbar from '../projectnav/ProjectNavbar';
 import ProjectCard from '../DisplayProject/ProjectCard';
@@ -86,9 +86,9 @@ function AdminHome() {
                           : adminContext === "viewProject" ?
                             <DisplayProject />
                             : adminContext === "createClient" ?
-                              <CreateClientForm />
+                              <ClientForm isUpdate={false}/>
                               : adminContext === "updateClient" ?
-                                <CreateClientForm />
+                                <ClientForm isUpdate={true} />
                                 : adminContext === "viewClient" ?
                                   <DisplayClients />
                                   : adminContext === "profile" ?

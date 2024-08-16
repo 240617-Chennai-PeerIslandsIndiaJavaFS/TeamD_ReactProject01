@@ -8,8 +8,8 @@ function DisplayClients() {
 
     const fetchClients = async () => {
         try {
-            const response = await axios.get('http://localhost:3001/clients');
-            setClients(response.data);
+            const response = await axios.get('http://localhost:8080/api/clients');
+            setClients(response.data.data);
         } catch (error) {
             console.error('Error fetching clients:', error);
         }
@@ -17,7 +17,7 @@ function DisplayClients() {
 
    useEffect(()=>{
     fetchClients()
-   },[clients])
+   },[])
 
     return (
         <>
@@ -25,7 +25,7 @@ function DisplayClients() {
                
                     <div className="clients-container">
                         {Array.isArray(clients) && clients.length > 0 ? (
-                            clients.map((client) => <ClientRow key={client.client_id} client={client} />)
+                            clients.map((client) => <ClientRow key={client.clientId} client={client} />)
                         ) : (
                             <p>No clients available.</p>
                         )}
