@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Navbar from '../Navbar/Navbar';
 import { TopNav } from '../Navbar/TopNav';
 import { userContext } from '../Context/UserContextComponent';
@@ -34,6 +34,10 @@ function AdminHome() {
     setModalContent(content);
     setModalOpen(true);
   };
+
+  useEffect(()=>{
+
+  } ,[userDetail])
 
   const toggleNavbar = () => {
     setShow(!show);
