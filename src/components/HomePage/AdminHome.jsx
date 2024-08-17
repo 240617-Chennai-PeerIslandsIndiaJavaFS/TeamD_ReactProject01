@@ -6,7 +6,7 @@ import { Analysis } from '../Analysis/Analysis';
 import DisplayMessages from '../messages/DisplayMessages';
 import CreateUserForm from '../forms/CreateUserForm';
 import DisplayUser from '../DisplayUsers/DisplayUser';
-import CreateProjectForm from '../forms/CreateProjectForm';
+import ProjectForm from '../forms/ProjectForm';
 import DisplayProject from '../DisplayProject/DisplayProject';
 import ClientForm from '../forms/ClientForm';
 import DisplayClients from '../DisplayClients/DisplayClients';
@@ -80,9 +80,9 @@ function AdminHome() {
                     <CreateUserForm /> : adminContext === "viewUser" ?
                       <DisplayUser />
                       : adminContext === "createProject" ?
-                        <CreateProjectForm />
+                        <ProjectForm/>
                         : adminContext === "updateProject" ?
-                          <CreateProjectForm />
+                          <ProjectForm isUpdate={true}/>
                           : adminContext === "viewProject" ?
                             <DisplayProject />
                             : adminContext === "createClient" ?
