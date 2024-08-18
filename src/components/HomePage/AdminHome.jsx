@@ -109,11 +109,11 @@ function AdminHome() {
             ) : adminContext === "messages" ? (
               <DisplayMessages />
             ) : adminContext === "createUser" ? (
-              <button onClick={() => openModal(<CreateUserForm />)}>Open Create User Form</button>
+              <UserForm isUpdate={false} />
             ) : adminContext === "updateUser" ? (
-              <CreateUserForm />
+              <UserForm isUpdate={true} /> 
             ) : adminContext === "viewUser" ? (
-              <DisplayUser />
+              <DisplayUser openModal={openModal} />
             ) : adminContext === "createProject" ? (
               <ProjectForm />
             ) : adminContext === "updateProject" ? (

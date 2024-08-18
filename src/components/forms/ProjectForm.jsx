@@ -19,18 +19,26 @@ const ProjectForm = ({ isUpdate = false }) => {
   const [searchName, setSearchName] = useState('');
   const [isProjectFound, setIsProjectFound] = useState(false);
   const [clients, setClients] = useState([]);
+  const [managers, setManagers] = useState([]);
+  const [selectedManager, setSelectedManager] = useState('');
+  const [existingTeamMembers, setExistingTeamMembers] = useState([]);
+
 
   useEffect(() => {
-    const fetchClients = async () => {
+    const fetchClientsAndManagers = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/clients');
-        setClients(response.data.data);
+        const clientsResponse = await axios.get('http://localhost:8080/api/clients');
+        setClients(clientsResponse.data.data);
+
+        const employeesResponse = await axios.get('http://localhost:8080/api/employee');
+        const managersData = employeesResponse.data.data.filter(employee => employee.role === 'MANAGER'); 
+        setManagers(managersData);
       } catch (error) {
-        console.error('Error fetching clients:', error);
+        console.error('Error fetching data:', error);
       }
     };
 
-    fetchClients();
+    fetchClientsAndManagers();
   }, []);
 
   const handleChange = (e) => {
@@ -45,6 +53,10 @@ const ProjectForm = ({ isUpdate = false }) => {
         clientId: e.target.value
       }
     });
+  };
+
+  const handleManagerChange = (e) => {
+    setSelectedManager(e.target.value);
   };
 
   const handleSearch = async (e) => {
@@ -68,6 +80,8 @@ const ProjectForm = ({ isUpdate = false }) => {
             clientId: project.client.clientId
           }
         });
+        setSelectedManager(project.team.find(member => member.role === 'MANAGER')?.employeeId || ''); 
+        setExistingTeamMembers(project.team.filter(member => member.role === 'ASSOCIATE')); 
         setIsProjectFound(true);
       } else {
         alert('No such project found');
@@ -83,11 +97,21 @@ const ProjectForm = ({ isUpdate = false }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const projectData = {
+        ...formData,
+        team: [
+          {
+            employeeId: selectedManager,
+          },
+          ...existingTeamMembers.map(member => ({ employeeId: member.employeeId }))
+        ]
+      };
+
       if (isUpdate && isProjectFound) {
-        await axios.put(`http://localhost:8080/api/projects/${formData.projectId}`, formData);
+        await axios.put(`http://localhost:8080/api/projects/${formData.projectId}`, projectData);
         alert('Project updated successfully');
       } else {
-        await axios.post('http://localhost:8080/api/projects', formData);
+        await axios.post('http://localhost:8080/api/projects', projectData);
         alert('Project created successfully');
       }
 
@@ -102,8 +126,10 @@ const ProjectForm = ({ isUpdate = false }) => {
           clientId: ''
         }
       });
+      setSelectedManager('');
       setSearchName('');
       setIsProjectFound(false);
+      setExistingTeamMembers([]);
     } catch (error) {
       console.error('Error creating/updating project:', error);
     }
@@ -223,6 +249,27 @@ const ProjectForm = ({ isUpdate = false }) => {
                   ))}
                 </select>
               </div>
+
+              <div className="form-group">
+                <label htmlFor="manager" className="form-label">Manager</label>
+                <select
+                  className="form-control"
+                  id="manager"
+                  name="manager"
+                  value={selectedManager}
+                  onChange={handleManagerChange}
+                  required
+                  disabled={isUpdate && !isProjectFound}
+                >
+                  <option value="">Select a manager</option>
+                  {managers.map((manager) => (
+                    <option key={manager.employeeId} value={manager.employeeId}>
+                      {manager.employeeName}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               <div className="text-center">
                 <button
                   type="submit"

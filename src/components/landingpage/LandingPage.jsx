@@ -36,7 +36,7 @@ const LandingPage = () => {
 
     return (
         <div className="landing-container">
-            <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+            <nav className="landing navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
                 <a className="navbar-brand" href="#">REV TASK MANAGEMENT</a>
             </nav>
             <div className="container mt-5 pt-5">
