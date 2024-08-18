@@ -3,33 +3,33 @@ import axios from 'axios';
 import UserRow from './UserRow';
 import './DisplayUser.css';
 
-function DisplayUser() {
-    const [users, setUsers] = useState([]);
+function DisplayUser({openModal}) {
+    const [employees, setEmployees] = useState([]);
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('http://localhost:3001/users');
-            setUsers(response.data);
+            const response = await axios.get('http://localhost:8080/api/employee');
+            setEmployees(response.data.data);
         } catch (error) {
             console.error('Error fetching users:', error);
         }
     };
     useEffect(()=>{
         fetchUsers()
-    },[users])
+    },[])
 
     
     return (
         <>
-            <div> 
+            <div className='user-display-component'> 
                     <div className="users-container ">
-                        {Array.isArray(users) && users.length > 0 ? (
-                            users.map((user) => <UserRow key={user.user_id} user={user} />)
+                        {Array.isArray(employees) && employees.length > 0 ? (
+                            employees.map((employee) => <UserRow key={employee.employeeId} employee={employee} openModal={openModal}/>)
                         ) : (
                             <p>No users available.</p>
                         )}
                     </div>
-                                                </div>
+             </div>
         </>
     );
 }
