@@ -4,7 +4,7 @@ import { TopNav } from '../Navbar/TopNav';
 import { userContext } from '../Context/UserContextComponent';
 import { Analysis } from '../Analysis/Analysis';
 import DisplayMessages from '../messages/DisplayMessages';
-import CreateUserForm from '../forms/CreateUserForm';
+import UserForm from '../forms/UserForm';
 import DisplayUser from '../DisplayUsers/DisplayUser';
 import ProjectForm from '../forms/ProjectForm';
 import DisplayProject from '../DisplayProject/DisplayProject';
@@ -105,6 +105,7 @@ function AdminHome() {
                 <Analysis title={taskTitle} data={taskData} />
                 <Analysis title={projectTitle} data={projectData} />
               </div>
+
             ) : adminContext === "messages" ? (
               <DisplayMessages />
             ) : adminContext === "createUser" ? (
@@ -144,6 +145,7 @@ function AdminHome() {
                 </>
               ) : projectDetails === "team" ? (
                 <>
+
                   <h1>Team selected</h1>
                   <AddTeamMember project={projects[adminContext]} />
                 </>

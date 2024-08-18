@@ -7,13 +7,16 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 16px;
-    margin: 8px 16px;
     transition: transform 0.2s;
     font-family: 'Poppins', sans-serif;
+    margin: auto;
+    width: 100%;
+    margin-bottom: 1rem;
 }
 
 .user-row:hover{
     transform: translateY(-8px);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .user-info {
@@ -28,10 +31,6 @@
     margin: 0;
 }
 
-.user-status {
-    display: flex;
-    align-items: center;
-}
 
 .status {
     padding: 4px 8px;
@@ -48,13 +47,16 @@
     background-color: #dc3545;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
     .user-row {
-        flex-direction: row;
+        flex-direction: row;  
+        width: 80%;
     }
 
     .user-info{
-        flex-direction: row;
+        width: 100%;
+        flex-direction: row; 
+        justify-content: space-around;
         margin-bottom: 0px;
     }
 }
