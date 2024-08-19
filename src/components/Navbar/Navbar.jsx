@@ -5,6 +5,7 @@ import { faBars, faLayerGroup, faCircleUser, faRightToBracket, faUsers, faClipbo
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { userContext } from '../Context/UserContextComponent';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = ({ show, toggleNavbar, setNavigate,adminContext}) => {
   const [activeLink, setActiveLink] = useState('');
@@ -12,7 +13,7 @@ const Navbar = ({ show, toggleNavbar, setNavigate,adminContext}) => {
   const { userDetail, setUserDetail, projects, setProjects } = useContext(userContext);
 
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-
+  const navigate=useNavigate();
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
@@ -26,14 +27,17 @@ const Navbar = ({ show, toggleNavbar, setNavigate,adminContext}) => {
 
   const userOption = () => {
     setNavigate('user');
+    adminContext("user");
   };
 
   const clientOption = () => {
     setNavigate('client');
+    adminContext("client");
   };
 
   const projectOption = () => {
     setNavigate('project');
+    adminContext("project");
   };
 
   const viewProjects = () => {
@@ -69,6 +73,12 @@ const Navbar = ({ show, toggleNavbar, setNavigate,adminContext}) => {
       ["statistics",faChartBar,statsOption],
       ['messages',faEnvelope,messageOption]
     ];
+  }
+
+  const logoutClicked=()=>{
+      localStorage.removeItem("user");
+      setProjects();
+      navigate("/login")
   }
 
   return (
@@ -109,10 +119,10 @@ const Navbar = ({ show, toggleNavbar, setNavigate,adminContext}) => {
               ))}
             </div>
           </div>
-          <Link to="/" className="nav_link">
+          <div className="nav_link" style={{cursor:"pointer"}} onClick={logoutClicked}>
             <FontAwesomeIcon icon={faRightToBracket} className="fa-rotate-180 nav_icon" />
             <span className="nav_name">SignOut</span>
-          </Link>
+          </div>
         </nav>
       </div>
     </>

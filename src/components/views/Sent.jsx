@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
-
+import { useContext } from 'react';
+import { userContext } from '../Context/UserContextComponent';
 const Sent = () => {
+  const { userDetail, projects } = useContext(userContext);
   const [sentMessages, setSentMessages] = useState([]);
   const [error, setError] = useState('');
-
+  // alert(userDetail.employeeId)
   useEffect(() => {
     const fetchSentMessages = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/messages/sender/8');
+        const response = await axios.get(`http://localhost:8080/api/messages/sender/${userDetail.employeeId}`);
         setSentMessages(response.data.data || []);
       } catch (err) {
-        setError('Error fetching sent messages');
+        setError('No sent messages');
         console.error(err);
       }
     };
