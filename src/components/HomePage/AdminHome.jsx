@@ -15,7 +15,7 @@ import ProjectCard from '../DisplayProject/ProjectCard';
 import ClientRow from '../DisplayClients/ClientRow';
 import AddTeamMember from '../addmember/AddTeamMember';
 import CreateTaskForm from '../forms/CreateTaskForm';
-import ProfilePage from '../profile/ProfilePage';
+import ProfileComponent from '../profile/ProfileComponent';
 import TaskBoard from '../TaskComponent/TaskBoard';
 import Modal from '../Modal/Modal';
 import './Home.css';
@@ -135,7 +135,7 @@ function AdminHome() {
               <DisplayClients />
             ) : adminContext === "profile" ? (
               <>
-                <ProfilePage user={userDetail} />
+                <ProfileComponent/>
               </>
             ) : adminContext > -1 ? (
               <ProjectNavbar projectDetails={setProjectDetails} projectData={projects[adminContext]} />
