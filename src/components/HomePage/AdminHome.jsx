@@ -20,7 +20,7 @@ import TaskBoard from '../TaskComponent/TaskBoard';
 import Modal from '../Modal/Modal';
 import './Home.css';
 import axios from 'axios';
-import { data } from 'jquery';
+import MessageDashboard from "../views/MessageDashboard"
 
 function AdminHome() {
   const { userDetail, projects } = useContext(userContext);
@@ -30,6 +30,21 @@ function AdminHome() {
   const [projectDetails, setProjectDetails] = useState("default");
   const [isModalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState("");
+  const [taskData, setTaskData] = useState([
+    ["IN_QUEUE", 0],
+    ["COMMENCED", 0],
+    ["TESTING", 0],
+    ["IN_REVIEW", 0],
+    ["BLOCKED", 0],
+    ["MERGED", 0],
+    ["CLOSED", 0],
+  ]);
+
+  const [projectData, setProjectData] = useState([
+    ["ON_HOLD", 0],
+    ["IN_PROGRESS", 0],
+    ["COMPLETED", 0],
+  ]);
   const openModal = (content) => {
     setModalContent(content);
     setModalOpen(true);
@@ -43,55 +58,47 @@ function AdminHome() {
     setShow(!show);
   };
 
+  useEffect(() => {
+    if (projects !== undefined && Array.isArray(projects)) {
+      console.log("Setting analysis panel");
+      let updatedTaskData = [...taskData]; // Create a copy of taskData
+      let updatedProjectData = [...projectData]; // Create a copy of projectData
+
+      projects.forEach((project) => {
+        // Fetch tasks for each project
+        axios
+          .get(`http://localhost:8080/api/tasks/project/${project.projectId}`)
+          .then((response) => {
+            const tasks = response.data;
+            tasks.forEach((task) => {
+              updatedTaskData.forEach((td) => {
+                if (td[0] === task.current_status) {
+                  td[1] += 1;
+                }
+              });
+            });
+            setTaskData(updatedTaskData); // Update the state with new task data
+          })
+          .catch(() => {
+            console.log("Error in fetching tasks");
+          });
+
+        // Update project data
+        updatedProjectData.forEach((status) => {
+          if (status[0] === project.projectStatus) {
+            status[1] += 1;
+          }
+        });
+      });
+
+      setProjectData(updatedProjectData); // Update the state with new project data
+    }
+  }, [projects]);
+
   const taskTitle = "Task analysis";
   const projectTitle = "Project analysis";
 
-  const taskData = [
-    ["IN_QUEUE", 0],
-    ["COMMENCED", 0],
-    ["TESTING", 0],
-    ["IN_REVIEW", 0],
-    ["BLOCKED", 0],
-    ["MERGED", 4],
-    ["CLOSED", 2],
-  ];
-  let task;
-  if(projects !== undefined && Array.isArray(projects)){
-      projects.forEach((project)=>{
-        axios.get(`http://localhost:8080/api/tasks/project/${project.projectId}`)
-        .then((reponse)=>{
-          task=reponse.data
-          task.forEach((t)=>{
-            taskData.forEach((td)=>{
-              if(td[0]===t.current_status){
-                td[1]+=1
-              }
-            })
-          })
-
-        })
-        .catch(()=>{
-          console.log("Error in fetching tasks");
-        })
-      })
-  }  
-  const projectData = [
-    ["ON_HOLD", 0],
-    ["IN_PROGRESS", 0],
-    ["COMPLETED", 0],
-  ];
-
-
-  if (projects !== undefined && Array.isArray(projects)) {
-    projects.forEach((project) => {
-      // Your existing logic for updating projectData
-      projectData.forEach((status) => {
-        if (status[0] === project.projectStatus) {
-          status[1] += 1;
-        }
-      });
-    });
-  }
+  
 
   return (
     <div className="home">
@@ -107,7 +114,7 @@ function AdminHome() {
               </div>
 
             ) : adminContext === "messages" ? (
-              <DisplayMessages />
+              <MessageDashboard/>
             ) : adminContext === "createUser" ? (
               <UserForm isUpdate={false} />
             ) : adminContext === "updateUser" ? (
@@ -132,12 +139,23 @@ function AdminHome() {
               </>
             ) : adminContext > -1 ? (
               <ProjectNavbar projectDetails={setProjectDetails} projectData={projects[adminContext]} />
-            ) : (
+            ) : adminContext==="user"?
+            <>
+                <DisplayUser openModal={openModal} />
+            </>
+            :adminContext==="client"?
+            <>
+                          <DisplayClients />
+            </>:adminContext==="project"?
+            <>
+                          <DisplayProject />
+            </>:(
               <></>
             )}
             <div id="project">
-              {projectDetails === "task" && adminContext > -1 ? (
-                <TaskBoard project={adminContext} />
+              {projectDetails === "task" && adminContext > -1 ? (<>
+                 <TaskBoard project={adminContext} />
+                </>
               ) : projectDetails === "details" ? (
                 <>
                   <ProjectCard project={projects[adminContext]} />
@@ -151,9 +169,9 @@ function AdminHome() {
                 </>
               ) : projectDetails === "createTask" ? (
                 <>
-                  <CreateTaskForm />
+                  <CreateTaskForm project={adminContext} />
                 </>
-              ) : (
+              ) :(
                 <></>
               )}
             </div>

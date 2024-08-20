@@ -48,7 +48,7 @@ export const TopNav = ({options,project,adminContext,projectDetails}) => {
               projectDetails("task")
             }}
         >
-            {data.project_name}
+            {data.projectName}
         </button>
     );
 })}

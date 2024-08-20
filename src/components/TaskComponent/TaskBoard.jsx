@@ -4,194 +4,68 @@ import Column from './Column';
 import './TaskBoard.css';
 import { userContext } from '../Context/UserContextComponent';
 import { useContext } from 'react';
+import axios from 'axios';
 
-const TaskBoard = ({project}) => {
-//   const projects = 
-//     {
-//       "project_id": 1,
-//       "project_name": "Tutee Deets",
-//       "project_description":"Student management system",
-//       "client":{"client_id": 1,
-//       "company_name": "Tech Solutions Inc.",
-//       "point_of_contact": "John Doe",
-//       "contact_email": "johndoe@techsolutions.com",
-//       "contact_number": "+1-555-123-4567",
-//       "address": "1234 Elm Street, Springfield, IL, 62701, USA"},
-//       "manager": {
-//         "user_id": 2,
-//         "user_name": "User 2",
-//         "user_role": "MANAGER",
-//         "email": "manager@gmail.com",
-//         "password": "Manager@123", 
-//         "phone": "+1-555-123-4562",
-//         "manager_id": null,
-//         "status": "Inactive"
-//       },
-//       "team": {
-//         "team_id": 1,
-//         "team_name": "alpha",
-//         "team_members": [
-//           {
-//             "user_id": 3,
-//             "user_name": "User 3",
-//             "user_role": "ASSOCIATE",
-//             "email": "associate1@gmail.com",
-//             "password": "Associate@123", 
-//             "phone": "+1-555-123-4563",
-//             "manager_id": null,
-//             "status": "Active"
-//           },
-//           {
-//             "user_id": 4,
-//             "user_name": "User 4",
-//             "user_role": "ASSOCIATE",
-//             "email": "associate2@gmail.com",
-//             "password": "password4", 
-//             "phone": "+1-555-123-4564",
-//             "manager_id": null,
-//             "status": "Inactive"
-//           },
-//           {
-//             "user_id": 5,
-//             "user_name": "User 5",
-//             "user_role": "ASSOCIATE",
-//             "email": "user5@example.com",
-//             "password": "password5", 
-//             "phone": "+1-555-123-4565",
-//             "manager_id": null,
-//             "status": "Active"
-//           },
-//           {
-//             "user_id": 6,
-//             "user_name": "User 6",
-//             "user_role": "ASSOCIATE",
-//             "email": "user6@example.com",
-//             "password": "password6", 
-//             "phone": "+1-555-123-4566",
-//             "manager_id": 2, 
-//             "status": "Active"
-//           }
-//         ]
-//       },
-//       "tasks":[
-//         {"task_id":1,
-//           "task_name":"create login page",
-//           "task_description":"Create responsive login page as per  design",
-//           "assignee":{"user_id": 3,
-//       "user_name": "User 3",
-//       "user_role": "ASSOCIATE",
-//       "email": "associate1@gmail.com",
-//       "password": "Associate@123", 
-//       "phone": "+1-555-123-4563",
-//       "manager_id": null,
-//       "status": "Active"},
-//           "milestonse":"Merged",
-//           "startDate":"21-07-2024",
-//           "endDate":"25-07-2024",
-//           "timeline":[{
-//       "timestamp_id":1,
-//       "milestone":"In Queue",
-//       "comment":"new task assigned. Start it ASAP"
-//     },
-//      {
-//       "timestamp_id":2,
-//       "milestone":"Commenced",
-//       "comment":"Started task"
-//     },
-//      {
-//       "timestamp_id":3,
-//       "milestone":"Testing",
-//       "comment":"Testig task"
-//     },
-//        {
-//       "timestamp_id":4,
-//       "milestone":"In review",
-//       "comment":"waiting for manager approval"
-//     },
-//        {
-//       "timestamp_id":5,
-//       "milestone":"Merged",
-//       "comment":"merged my branch in github"
-//     }]
-//         },
-//         {"task_id":2,
-//           "task_name":"create user api's ",
-//           "task_description":"Create crud api's",
-//           "assignee":{  "user_id": 3,
-//       "user_name": "User 3",
-//       "user_role": "ASSOCIATE",
-//       "email": "associate1@gmail.com",
-//       "password": "Associate@123", 
-//       "phone": "+1-555-123-4563",
-//       "manager_id": null,
-//       "status": "Active"},
-//           "milestonse":"In Queue",
-//           "startDate":"21-07-2024",
-//           "endDate":"25-07-2024",
-//           "timeline":[{
-//       "timestamp_id":1,
-//       "milestone":"In Queue",
-//       "comment":"new task assigned. Start it ASAP"
-//     }]
-//         }
-//         ]
-//     }
-const { userDetail, setUserDetail, projects, setProjects} = useContext(userContext);
-    
-    // console.log(projects[project]);
-    
+const TaskBoard = ({ project }) => {
+    const { userDetail, setUserDetail, projects, setProjects } = useContext(userContext);
+    const [tasks, setTasks] = useState(null); // Initialize tasks as null
+    const [columns, setColumns] = useState(null); // Initialize columns as null
+
+    useEffect(() => {
+        const fetchTasks = () => {
+            axios.get(`http://localhost:8080/api/tasks/project/${projects[project].projectId}`)
+                .then((response) => {
+                    setTasks(response.data);
+                })
+                .catch((error) => {
+                    console.log("Error fetching tasks", error);
+                });
+        };
+
+        fetchTasks();
+    }, [projects, project]);
+
+    useEffect(() => {
+        if (tasks) {
+            const categorizedTasks = categorizeTasks(tasks);
+            const initialColumns = {
+                'IN_QUEUE': { id: 'IN_QUEUE', title: 'In Queue', taskIds: categorizedTasks['in_queue'].map(task => task.taskId.toString()) },
+                'COMMENECED': { id: 'COMMENCED', title: 'Commenced', taskIds: categorizedTasks['commenced'].map(task => task.taskId.toString()) },
+                'TESTING': { id: 'TESTING', title: 'Testing', taskIds: categorizedTasks['testing'].map(task => task.taskId.toString()) },
+                'IN_REVIEW': { id: 'IN_REVIEW', title: 'In Review', taskIds: categorizedTasks['in_review'].map(task => task.taskId.toString()) },
+                'BLOCKED': { id: 'BLOCKED', title: 'Blocked', taskIds: categorizedTasks['blocked'].map(task => task.taskId.toString()) },
+                'MERGED': { id: 'MERGED', title: 'Merged', taskIds: categorizedTasks['merged'].map(task => task.taskId.toString()) },
+                'CLOSED': { id: 'CLOSED', title: 'Closed', taskIds: categorizedTasks['closed'].map(task => task.taskId.toString()) },
+            };
+            setColumns(initialColumns);
+        }
+    }, [tasks]);
+
     const categorizeTasks = (tasks) => {
         const categorizedTasks = {
-            'in queue': [],
+            'in_queue': [],
             'commenced': [],
-            'implemented': [],
             'testing': [],
-            'in review': [],
+           'in_review': [],
+            'blocked': [],
             'merged': [],
+            'closed': [] 
         };
 
         tasks.forEach((task) => {
-            // const lastMilestone = task.timeline[task.timeline.length - 1].milestone;
-            // if (categorizedTasks[lastMilestone]) {
-            //     categorizedTasks[lastMilestone].push(task);
-            // }
-            const lastMilestone = task.milestone.toLowerCase();
-            // console.log(lastMilestone)
-            categorizedTasks[lastMilestone].push(task);
+            const lastMilestone = task.current_status.toLowerCase();
+            categorizedTasks[lastMilestone]?.push(task);
         });
 
         return categorizedTasks;
-
     };
-
-    // const tasks = projects.flatMap((project) => project.tasks);
-    // console.log(tasks);
-    const tasks = projects[project].tasks;
-    // console.log(tasks);
-    
-    const categorizedTasks = categorizeTasks(tasks);
-    // console.log(categorizedTasks);
-
-    const initialColumns = {
-        'column-1': { id: 'column-1', title: 'In Queue', taskIds: categorizedTasks['in queue'].map(task => task.task_id.toString()) },
-        'column-2': { id: 'column-2', title: 'Commenced', taskIds: categorizedTasks['commenced'].map(task => task.task_id.toString()) },
-        'column-3': { id: 'column-3', title: 'Implemented', taskIds: categorizedTasks['implemented'].map(task => task.task_id.toString()) },
-        'column-4': { id: 'column-4', title: 'Testing', taskIds: categorizedTasks['testing'].map(task => task.task_id.toString()) },
-        'column-5': { id: 'column-5', title: 'In Review', taskIds: categorizedTasks['in review'].map(task => task.task_id.toString()) },
-        'column-6': { id: 'column-6', title: 'Merged', taskIds: categorizedTasks['merged'].map(task => task.task_id.toString()) },
-    };
-
-    const [columns, setColumns] = useState(initialColumns);
 
     const onDragEnd = (result) => {
-        const { destination, source, draggableId } = result;
         console.log(result);
         
-
-        // Check if destination is valid
+        const { destination, source, draggableId } = result;
         if (!destination) return;
 
-        // Handle reordering of tasks within the same column
         if (destination.droppableId === source.droppableId) {
             const column = columns[source.droppableId];
             const newTaskIds = Array.from(column.taskIds);
@@ -208,15 +82,12 @@ const { userDetail, setUserDetail, projects, setProjects} = useContext(userConte
                 [source.droppableId]: updatedColumn,
             });
         } else {
-            // Handle moving tasks between columns
             const startColumn = columns[source.droppableId];
             const finishColumn = columns[destination.droppableId];
 
-            // Remove task from the start column
             const startTaskIds = Array.from(startColumn.taskIds);
             startTaskIds.splice(source.index, 1);
 
-            // Add task to the finish column
             const finishTaskIds = Array.from(finishColumn.taskIds);
             finishTaskIds.splice(destination.index, 0, draggableId);
 
@@ -234,6 +105,11 @@ const { userDetail, setUserDetail, projects, setProjects} = useContext(userConte
         }
     };
 
+    // Ensure the component only renders when tasks and columns are available
+    if (!tasks || !columns) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <div className="task-board">
             <DragDropContext onDragEnd={onDragEnd}>
@@ -241,8 +117,7 @@ const { userDetail, setUserDetail, projects, setProjects} = useContext(userConte
                     {Object.keys(columns).map((columnId) => {
                         const column = columns[columnId];
                         const columnTasks = column.taskIds.map(
-                            (taskId) =>
-                                tasks.find((task) => task.task_id.toString() === taskId)
+                            (taskId) => tasks.find((task) => task.taskId.toString() === taskId)
                         );
 
                         return (

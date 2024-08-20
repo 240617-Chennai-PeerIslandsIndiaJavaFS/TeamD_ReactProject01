@@ -4,12 +4,12 @@ import './LandingPage.css';
 import logo from '../../images/logo.png'; // Adjust paths if needed
 import humanImage from '../../images/homeimage.png'; // Adjust paths if needed
 import ResetButton from '../buttons/ResetButton'; // Adjust path if needed
-
+import { useNavigate } from 'react-router-dom';
 const LandingPage = () => {
     const [clients, setClients] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const navigate=useNavigate();
     useEffect(() => {
         const fetchClients = async () => {
             try {
@@ -31,7 +31,7 @@ const LandingPage = () => {
     }, []);
 
     const handleButtonClick = () => {
-        console.log('Get Started button clicked!');
+        navigate("/login")
     };
 
     return (

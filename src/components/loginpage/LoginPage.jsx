@@ -16,6 +16,7 @@ function LoginPage() {
         e.preventDefault();
             const response = axios.get(`http://localhost:8080/api/employee/login?email=${email}&password=${password}`).then((response)=>{
                 if(response.data.status==202){
+                    console.log("Login successful");
                     localStorage.setItem("user",JSON.stringify(response.data.data));
                     setUserDetail(JSON.parse(localStorage.getItem("user")))
                     navigate("/home")
