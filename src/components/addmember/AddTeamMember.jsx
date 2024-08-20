@@ -1,97 +1,165 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import ResetButton from '../buttons/ResetButton'; 
+// src/components/addmember/AddTeamMember.jsx
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './AddTeamMember.css';
 
 const AddTeamMember = ({ project }) => {
-    // Predefined users
-    const initialUsers = [
-        { user_id: 3, user_name: "User 3" },
-        { user_id: 4, user_name: "User 4" },
-        { user_id: 5, user_name: "User 5" },
-        { user_id: 6, user_name: "User 6" }
-    ];
-    console.log(project.team.team_members);
-    
+    const [members, setMembers] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchResult, setSearchResult] = useState(null);
+    const [message, setMessage] = useState('');
 
-    const [members, setMembers] = useState(project.team.team_members);
-    const [newMemberName, setNewMemberName] = useState('');
-    const [showAddForm, setShowAddForm] = useState(false);
+    // Fetch existing project members on component mount
+    useEffect(() => {
+        const fetchMembers = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/api/projects/${project.id}`);
+                if (response.status === 200) {
+                    setMembers(response.data.data.team || []);
+                } else {
+                    console.error('Error fetching project members:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error fetching project members:', error);
+            }
+        };
 
-    const handleAddMember = () => {
-        if (newMemberName.trim() !== '') {
-            const newMemberObj = {
-                user_id: members.length + 1, // Simplified ID generation
-                user_name: newMemberName,
-                user_role: 'ASSOCIATE',
-                email: '', // Placeholder
-                phone: '',
-                status: 'Active'
-            };
-            setMembers([...members, newMemberObj]);
-            setNewMemberName('');
-            setShowAddForm(false); // Hide the form after adding a member
+        fetchMembers();
+    }, [project.id]);
+
+    // Search for employees by name
+    const handleSearch = async (e) => {
+        setSearchQuery(e.target.value);
+        if (e.target.value.trim() === '') {
+            setSearchResult(null);
+            return;
+        }
+
+        try {
+            const response = await axios.get('http://localhost:8080/api/employee/name', {
+                params: { name: e.target.value },
+            });
+
+            if (response.status === 200) {
+                setSearchResult(response.data.data || 'No employee found with this name.');
+            } else {
+                setSearchResult('No employee found with this name.');
+            }
+        } catch (error) {
+            console.error('Error searching employees:', error);
+            setSearchResult('Error searching employees.');
         }
     };
 
-    const handleChatClick = (userName) => {
-        alert(`Sending message to ${userName}`);
+    // Add employee to project
+    const handleAddMember = async () => {
+        if (!searchResult || typeof searchResult === 'string') {
+            setMessage('No employee selected to add.');
+            return;
+        }
+    
+        try {
+            const response = await axios.post('http://localhost:8080/api/projects/add', null, {
+                params: {
+                    project_id: project.id, // Ensure this matches with backend
+                    employee_id: searchResult.employeeId // Ensure this matches with backend
+                }
+            });
+    
+            if (response.status === 200) {
+                setMembers([...members, searchResult]);
+                setMessage('Member added successfully!');
+                setSearchQuery('');
+                setSearchResult(null);
+            } else {
+                console.error('Error adding member to project:', response.statusText);
+                setMessage('Failed to add member.');
+            }
+        } catch (error) {
+            console.error('Error adding member to project:', error);
+            setMessage('Failed to add member.');
+        }
     };
+    
 
-    const handleShowAddForm = () => {
-        setShowAddForm(true);
+    // Remove employee from project
+    const handleDeleteMember = async (employeeId) => {
+        try {
+            // Assuming project.id and employeeId are correct
+            const response = await axios.delete('http://localhost:8080/api/projects/team', {
+                params: {
+                    project_id: project.id,  // Adjust if the backend expects 'project_id'
+                    employee_id: employeeId  // Adjust if the backend expects 'employee_id'
+                }
+            });
+    
+            if (response.status === 200) {
+                setMembers(members.filter(member => member.employeeId !== employeeId));
+                setMessage('Member deleted successfully!');
+            } else {
+                console.error('Error deleting member from project:', response.statusText);
+                setMessage('Failed to delete member.');
+            }
+        } catch (error) {
+            console.error('Error deleting member from project:', error);
+            setMessage('Failed to delete member.');
+        }
     };
 
     return (
-        <div className="team-container">
-            <h3>Team Members</h3>
-            <ul className="team-list">
-                {/* Display Manager */}
-                {project?.manager?.user_name && (
-                    <li key={project.manager.user_id} className="team-item">
-                        <span>{project.manager.user_name}</span>
-                        <button className='btn btn-primary' onClick={() => handleChatClick(project.manager.user_name)} value="Chat">Chat</button>
-                    </li>
+        <div className="container mt-4">
+            <h3 className="mb-4">Project Team Members</h3>
+            {message && <div className="alert alert-info">{message}</div>}
+
+            <ul className="list-group mb-4">
+                {members.length > 0 ? (
+                    members.map(member => (
+                        <li key={member.employeeId} className="list-group-item d-flex justify-content-between align-items-center">
+                            {member.employeeName}
+                            <button
+                                type="button"
+                                className="btn btn-primary"
+                                onClick={() => handleDeleteMember(member.employeeId)}
+                            >
+                                Delete
+                            </button>
+                        </li>
+                    ))
+                ) : (
+                    <li className="list-group-item">No members assigned to this project.</li>
                 )}
-
-                {/* Display predefined team members */}
-                {members.map(member => (
-                    <li key={member.user_id} className="team-item">
-                        <span>{member.user_name}</span>
-                        <ResetButton onClick={() => handleChatClick(member.user_name)} value="Chat" />
-                    </li>
-                ))}
-
-                {/* Display "Add Member" button */}
-                <li className="add-member-item">
-                    <ResetButton onClick={handleShowAddForm} value="Add Member" />
-                </li>
             </ul>
 
-            {/* Add Member Form */}
-            {showAddForm && (
-                <div className="add-member-form">
+            <div className="add-member-form card p-4">
+                <div className="mb-3">
                     <input
                         type="text"
-                        placeholder="Enter new member name"
-                        value={newMemberName}
-                        onChange={(e) => setNewMemberName(e.target.value)}
+                        className="form-control"
+                        placeholder="Search for an employee"
+                        value={searchQuery}
+                        onChange={handleSearch}
                     />
-                    <ResetButton onClick={handleAddMember} value="Add Member" />
                 </div>
-            )}
+                {typeof searchResult === 'string' ? (
+                    <div className="alert alert-warning">{searchResult}</div>
+                ) : (
+                    searchResult && (
+                        <div className="d-flex justify-content-between align-items-center mb-3">
+                            <span>{searchResult.employeeName}</span>
+                            <button
+                                type="button"
+                                className="btn btn-primary"
+                                onClick={handleAddMember} // This is the Add button
+                            >
+                                Add
+                            </button>
+                        </div>
+                    )
+                )}
+            </div>
         </div>
     );
-};
-
-AddTeamMember.propTypes = {
-    project: PropTypes.shape({
-        project_name: PropTypes.string,
-        manager: PropTypes.shape({
-            user_id: PropTypes.number,
-            user_name: PropTypes.string,
-        }),
-    }).isRequired,
 };
 
 export default AddTeamMember;
