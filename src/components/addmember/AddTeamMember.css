@@ -1,30 +1,40 @@
-
-.team-container {
-    padding: 20px;
-}
-
-.team-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-.team-item {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.add-member-item {
-    margin-top: 10px;
+.container {
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .add-member-form {
     margin-top: 20px;
 }
 
-.add-member-form input {
-    margin-right: 10px;
-    padding: 5px;
+.list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.list-group-item:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+.alert-info {
+    margin-top: 20px;
+}
+
+.alert-warning {
+    margin-top: 10px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    color: #fff;
 }
