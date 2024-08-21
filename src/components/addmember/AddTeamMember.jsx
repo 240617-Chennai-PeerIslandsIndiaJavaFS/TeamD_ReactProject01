@@ -14,7 +14,7 @@ const AddTeamMember = ({ project }) => {
     useEffect(() => {
         const fetchMembers = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/projects/${project.id}`);
+                const response = await axios.get(`http://localhost:8080/api/projects/${project.projectId}`);
                 if (response.status === 200) {
                     setMembers(response.data.data.team || []);
                 } else {
@@ -26,7 +26,7 @@ const AddTeamMember = ({ project }) => {
         };
 
         fetchMembers();
-    }, [project.id]);
+    }, [project.projectId]);
 
     // Search for employees by name
     const handleSearch = async (e) => {
@@ -48,7 +48,7 @@ const AddTeamMember = ({ project }) => {
             }
         } catch (error) {
             console.error('Error searching employees:', error);
-            setSearchResult('Error searching employees.');
+            setSearchResult('Not Found.');
         }
     };
 
@@ -62,7 +62,7 @@ const AddTeamMember = ({ project }) => {
         try {
             const response = await axios.post('http://localhost:8080/api/projects/add', null, {
                 params: {
-                    project_id: project.id, // Ensure this matches with backend
+                    project_id: project.projectId, // Ensure this matches with backend
                     employee_id: searchResult.employeeId // Ensure this matches with backend
                 }
             });
@@ -89,7 +89,7 @@ const AddTeamMember = ({ project }) => {
             // Assuming project.id and employeeId are correct
             const response = await axios.delete('http://localhost:8080/api/projects/team', {
                 params: {
-                    project_id: project.id,  // Adjust if the backend expects 'project_id'
+                    project_id: project.projectId,  // Adjust if the backend expects 'project_id'
                     employee_id: employeeId  // Adjust if the backend expects 'employee_id'
                 }
             });

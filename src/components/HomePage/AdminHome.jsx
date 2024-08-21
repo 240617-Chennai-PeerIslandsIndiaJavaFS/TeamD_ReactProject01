@@ -169,7 +169,7 @@ function AdminHome() {
                 </>
               ) : projectDetails === "createTask" ? (
                 <>
-                  <CreateTaskForm project={adminContext} />
+                  <CreateTaskForm project={projects[adminContext]} />
                 </>
               ) :(
                 <></>
