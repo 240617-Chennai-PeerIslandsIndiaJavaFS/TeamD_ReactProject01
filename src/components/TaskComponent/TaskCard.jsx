@@ -20,8 +20,7 @@ const TaskCard = ({ task, index }) => {
                         </div>
                         <div className="task-body">{description}</div>
                         <div className="task-footer">
-                            {/* <span>{commentsCount} comments</span> */}
-                            {/* <span>{assignee.user_name}</span> */}
+                            <span>{assignees.length} assignees</span>
                         </div>
                     </div>
                 </div>
