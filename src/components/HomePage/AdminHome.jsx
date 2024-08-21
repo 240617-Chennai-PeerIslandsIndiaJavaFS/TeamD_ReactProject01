@@ -149,7 +149,12 @@ function AdminHome() {
             </>:adminContext==="project"?
             <>
                           <DisplayProject />
-            </>:(
+            </>:adminContext==="viewUsers"?
+            (
+              <DisplayUser openModal={openModal} />
+            )
+              :
+            (
               <></>
             )}
             <div id="project">

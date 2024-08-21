@@ -1,5 +1,5 @@
 /* General Container Styles */
-.container {
+.message-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
@@ -7,7 +7,7 @@
 }
 
 /* Header Styles */
-.header {
+.message-header {
     background-color: #fff; /* Background color set to white */
     color: #000; /* Text color set to black */
     padding: 10px 20px;
@@ -17,7 +17,7 @@
 }
 
 /* Section Styles */
-.section {
+.message-section {
     margin: 20px 0;
     padding: 20px;
     border: 1px solid #ddd; /* Light border for sections */
@@ -26,7 +26,7 @@
 }
 
 /* Form Styles */
-.form {
+.message-form {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -38,13 +38,13 @@
     background-color: #fff; /* Background color set to white */
 }
 
-.form label {
+.message-form label {
     margin-bottom: 10px;
     font-weight: bold;
 }
 
-.form input,
-.form textarea {
+.message-form input,
+.message-form textarea {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -53,7 +53,7 @@
     font-size: 16px;
 }
 
-.form button {
+.message-form button {
     padding: 10px;
     background-color: #007bff; /* Bootstrap primary button color */
     color: white;
@@ -64,17 +64,17 @@
     width: 100%;
 }
 
-.form button:hover {
+.message-form button:hover {
     background-color: #0056b3; /* Darker shade for button hover */
 }
 
 /* List Styles */
-.list {
+.message-list {
     list-style-type: none;
     padding: 0;
 }
 
-.list-item {
+.message-list-item {
     padding: 10px;
     border: 1px solid #ddd; /* Light border for list items */
     border-radius: 4px;
@@ -83,26 +83,26 @@
 }
 
 /* Utility Classes */
-.text-center {
+.message-text-center {
     text-align: center;
 }
 
-.mt-2 {
+.message-mt-2 {
     margin-top: 10px;
 }
 
-.mb-2 {
+.message-mb-2 {
     margin-bottom: 10px;
 }
 
 /* Alert Styles */
-.alert {
+.message-alert {
     border-radius: 4px;
     padding: 15px;
     margin-bottom: 20px;
 }
 
-.alert-danger {
+.message-alert-danger {
     background-color: #f8d7da;
     color: #721c24;
     border-color: #f5c6cb;

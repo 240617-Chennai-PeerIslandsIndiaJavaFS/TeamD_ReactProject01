@@ -53,6 +53,9 @@ const Navbar = ({ show, toggleNavbar, setNavigate,adminContext}) => {
     adminContext("messages");
   }
 
+  const viewUsers = () => {
+    adminContext("viewUsers")
+  }
   useEffect(()=>{
 
   } ,[userDetail])
@@ -71,6 +74,7 @@ const Navbar = ({ show, toggleNavbar, setNavigate,adminContext}) => {
     options = [
       ['View Projects', faProjectDiagram, viewProjects],
       ["statistics",faChartBar,statsOption],
+      ['Users', faUsers, viewUsers],
       ['messages',faEnvelope,messageOption]
     ];
   }
