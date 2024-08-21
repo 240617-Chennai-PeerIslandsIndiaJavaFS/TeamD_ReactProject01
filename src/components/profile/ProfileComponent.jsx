@@ -3,12 +3,14 @@ import axios from 'axios';
 import './ProfileComponent.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileComponent = () => {
     const [user, setUser] = useState(null);
     const [image, setImage] = useState(null);
     const [uploadedImage, setUploadedImage] = useState(null);
     const [imageName, setImageName] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const userData = JSON.parse(localStorage.getItem('user'));
@@ -52,11 +54,12 @@ const ProfileComponent = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('user');
-        window.location.href = '/login'; 
+        navigate("/login")
     };
 
     const handleResetPassword = () => {
-        alert('Reset password functionality to be implemented');
+        localStorage.removeItem('user')
+        navigate("/reset")
     };
 
     if (!user) return null;

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
-import './GeneralStyles.css'; // Import your custom CSS
-import CreateMessageForm from '../forms/CreateMessageForm'; // Import from forms folder
-import Inbox from './Inbox'; // Import from views folder
-import Sent from './Sent'; // Import from views folder
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './GeneralStyles.css';
+import CreateMessageForm from '../forms/CreateMessageForm';
+import Inbox from './Inbox';
+import Sent from './Sent';
 
 const MessageDashboard = () => {
-  const [view, setView] = useState('compose'); // Initial view
+  const [view, setView] = useState('compose');
 
   const renderView = () => {
     switch (view) {
@@ -22,14 +22,14 @@ const MessageDashboard = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <h1 className="text-center mb-4">Messages Dashboard</h1>
-      <div className="text-center mb-4">
+    <div className="message-container message-mt-2">
+      <h1 className="message-text-center message-mb-2">Messages Dashboard</h1>
+      <div className="message-text-center message-mb-2">
         <button className="btn btn-primary mx-2" onClick={() => setView('compose')}>Compose</button>
         <button className="btn btn-primary mx-2" onClick={() => setView('inbox')}>Inbox</button>
         <button className="btn btn-primary mx-2" onClick={() => setView('sent')}>Sent</button>
       </div>
-      <div className="section">
+      <div className="message-section">
         {renderView()}
       </div>
     </div>

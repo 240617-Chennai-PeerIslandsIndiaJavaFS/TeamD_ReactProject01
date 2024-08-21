@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { useContext } from 'react';
 import { userContext } from '../Context/UserContextComponent';
+import './GeneralStyles.css';
+
 const Sent = () => {
   const { userDetail, projects } = useContext(userContext);
   const [sentMessages, setSentMessages] = useState([]);
   const [error, setError] = useState('');
-  // alert(userDetail.employeeId)
+
   useEffect(() => {
     const fetchSentMessages = async () => {
       try {
@@ -23,20 +25,20 @@ const Sent = () => {
   }, []);
 
   return (
-    <div className="container mt-4">
-      <h2 className="text-center mb-4">Sent Messages</h2>
-      {error && <div className="alert alert-danger">{error}</div>}
-      <ul className="list-group">
+    <div className="message-container message-mt-2">
+      <h2 className="message-text-center message-mb-2">Sent Messages</h2>
+      {error && <div className="message-alert message-alert-danger">{error}</div>}
+      <ul className="message-list">
         {Array.isArray(sentMessages) && sentMessages.length > 0 ? (
           sentMessages.map((message) => (
-            <li key={message.messageId} className="list-group-item">
+            <li key={message.messageId} className="message-list-item">
               <strong>Subject:</strong> {message.subject}<br />
               <strong>To:</strong> {message.receiver.employeeName}<br />
               <strong>Content:</strong> {message.context}
             </li>
           ))
         ) : (
-          <p className="text-center">No sent messages found.</p>
+          <p className="message-text-center">No sent messages found.</p>
         )}
       </ul>
     </div>

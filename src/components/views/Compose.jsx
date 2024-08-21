@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './GeneralStyles.css';
 
 const Compose = () => {
   const [messages, setMessages] = useState([]);
@@ -21,12 +22,12 @@ const Compose = () => {
   }, []);
 
   return (
-    <div className="container mt-4">
-      <h2 className="text-center mb-4">Messages</h2>
-      {error && <div className="alert alert-danger">{error}</div>}
-      <ul className="list-group">
+    <div className="message-container message-mt-2">
+      <h2 className="message-text-center message-mb-2">Messages</h2>
+      {error && <div className="message-alert message-alert-danger">{error}</div>}
+      <ul className="message-list">
         {messages.map((message) => (
-          <li key={message.messageId} className="list-group-item">
+          <li key={message.messageId} className="message-list-item">
             {message.content}
           </li>
         ))}

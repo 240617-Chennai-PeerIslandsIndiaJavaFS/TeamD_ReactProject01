@@ -3,12 +3,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './AddTeamMember.css';
-
+import { userContext } from '../Context/UserContextComponent';
+import { useContext } from 'react';
 const AddTeamMember = ({ project }) => {
     const [members, setMembers] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResult, setSearchResult] = useState(null);
     const [message, setMessage] = useState('');
+    const { userDetail, projects } = useContext(userContext);
 
     // Fetch existing project members on component mount
     useEffect(() => {
@@ -117,47 +119,52 @@ const AddTeamMember = ({ project }) => {
                     members.map(member => (
                         <li key={member.employeeId} className="list-group-item d-flex justify-content-between align-items-center">
                             {member.employeeName}
-                            <button
-                                type="button"
-                                className="btn btn-primary"
-                                onClick={() => handleDeleteMember(member.employeeId)}
-                            >
-                                Delete
-                            </button>
+                            {userDetail.role==="MANAGER"?
+                             <button
+                             type="button"
+                             className="btn btn-primary"
+                             onClick={() => handleDeleteMember(member.employeeId)}
+                         >
+                             Delete
+                         </button>
+                            :<></>}
+                           
                         </li>
                     ))
                 ) : (
                     <li className="list-group-item">No members assigned to this project.</li>
                 )}
             </ul>
-
+            {userDetail.role==="MANAGER"?
             <div className="add-member-form card p-4">
-                <div className="mb-3">
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Search for an employee"
-                        value={searchQuery}
-                        onChange={handleSearch}
-                    />
-                </div>
-                {typeof searchResult === 'string' ? (
-                    <div className="alert alert-warning">{searchResult}</div>
-                ) : (
-                    searchResult && (
-                        <div className="d-flex justify-content-between align-items-center mb-3">
-                            <span>{searchResult.employeeName}</span>
-                            <button
-                                type="button"
-                                className="btn btn-primary"
-                                onClick={handleAddMember} // This is the Add button
-                            >
-                                Add
-                            </button>
-                        </div>
-                    )
-                )}
+            <div className="mb-3">
+                <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Search for an employee"
+                    value={searchQuery}
+                    onChange={handleSearch}
+                />
             </div>
+            {typeof searchResult === 'string' ? (
+                <div className="alert alert-warning">{searchResult}</div>
+            ) : (
+                searchResult && (
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                        <span>{searchResult.employeeName}</span>
+                        <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={handleAddMember} // This is the Add button
+                        >
+                            Add
+                        </button>
+                    </div>
+                )
+            )}
+        </div>
+            :<></>}
+            
         </div>
     );
 };
