@@ -16,7 +16,7 @@ const Column = ({ columnId, columnTitle, tasks }) => {
                     >
                         {tasks.map((task, index) => (
                             <TaskCard
-                                key={task.task_id}
+                                key={task.taskId}
                                 task={task}
                                 index={index}
                             />
@@ -30,4 +30,3 @@ const Column = ({ columnId, columnTitle, tasks }) => {
 };
 
 export default Column;
-
