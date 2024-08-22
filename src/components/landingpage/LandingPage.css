@@ -1,168 +1,143 @@
-/* Navbar styles */
-.landing {
-    background-color: #007bff; /* Blue background */
-    color: #ffffff; /* White text color */
-    padding: 10px 20px; /* Padding around the text */
+/* Landing Page Styles */
+
+/* Navbar Styles */
+.landing-navbar {
+    background-color: #007bff; 
+    color: #ffffff; 
+    padding: 10px 20px; 
     width: 100%;
-    position: fixed; /* Fixed at the top */
+    position: fixed;
     top: 0;
     left: 0;
+    z-index: 1000;
     display: flex;
-    justify-content: center;
-    text-align: center; /* Center the text horizontally */
-    z-index: 1000; /* Ensures navbar stays above other content */
+    justify-content: center; 
+    align-items: center; 
 }
 
-.navbar-title {
-    font-size: 1.5rem; /* Font size for the navbar text */
-    font-weight: bold;
-    line-height: 1.5; /* Adjust line height for vertical alignment */
+/* Main Content Layout */
+.landing-container {
+    padding-top: 70px; 
 }
 
-/* Layout for the main content section */
-.content-section {
-    display: flex;
-    align-items: center;
-    padding: 50px 40px; /* Increased padding on the left side */
-    background-color: #ffffff;
-    margin-top: 60px; /* Adjusted to accommodate fixed navbar */
+#landing-logo {
+    width: 200px;
+    margin-bottom: 30px; 
 }
 
-.left-section {
-    flex: 1;
-    padding-right: 20px;
-}
-
-.right-section {
-    flex: 1;
-    text-align: center;
-}
-
-#logo {
-    width: 200px; /* Increased size of the logo */
-    margin-bottom: 30px; /* Added margin to push the logo down */
-}
-
-.title {
-    font-size: 2.5rem; /* Decreased size of the title */
+.landing-title {
+    font-size: 2.5rem; 
     margin-top: 20px;
     color: #333333;
 }
 
-.description {
+.landing-description {
     font-size: 1.3rem;
     margin-top: 20px;
     color: #555555;
 }
 
-.start-button {
-    margin-top: 20px;
-    padding: 14px 28px; /* Slightly larger button */
-    background-color: #007bff;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.2rem; /* Increased font size */
-}
-
-.start-button:hover {
-    background-color: #0056b3;
-}
-
-.human-image {
-    width: 100%;
-    max-width: 600px; /* Increased size of the image */
-    height: auto;
-}
-
-/* Styles for the About Section */
-.about-section {
-    padding: 40px 20px;
-    background-color: #f9f9f9;
-    text-align: center;
-    margin-top: 40px;
-}
-
-.about-title {
+.landing-about-title {
     font-size: 2rem;
     margin-bottom: 20px;
     color: #007bff;
-    text-align: center; /* Center the heading text */
+    text-align: center;
 }
 
-.about-description {
+.landing-about-description {
     font-size: 1.2rem;
     margin-bottom: 20px;
     color: #333333;
-    text-align: center; /* Center the description text */
+    text-align: center;
 }
 
-.about-points {
-    list-style-type: disc;
+.landing-about-points {
+    list-style-type: none; 
     margin: 20px auto;
-    padding-left: 40px;
-    text-align: left;
+    padding-left: 0; 
     max-width: 800px;
 }
 
-.about-points li {
+.landing-about-points li {
     font-size: 1.1rem;
     margin-bottom: 10px;
     color: #555555;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for each point */
-    padding: 10px; /* Padding for better readability */
-    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    padding: 10px; 
+    border-radius: 5px; 
 }
 
-/* Styles for the Clients Section */
-.clients-section {
-    padding: 40px 20px;
-    text-align: center;
-    background-color: #f9f9f9;
-}
-
-.clients-title {
+/* Clients Section Styles */
+.landing-clients-title {
     font-size: 2rem;
     margin-bottom: 30px;
     color: #007bff;
-    text-align: center; /* Center the heading text */
-}
-
-/* Container for all company names */
-.clients-box {
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    gap: 40px; /* Increased space between company name boxes */
-    padding: 15px;
-    border: 2px solid #007bff; /* Border around the entire box */
-    border-radius: 10px; /* Rounded corners for the box */
-    background-color: #e9f5ff; /* Light background color for the box */
-    margin: 0 auto; /* Center the box horizontally */
-}
-
-/* Styling for individual company names */
-.client-company-name {
-    font-size: 1.5rem;
-    padding: 10px 20px; /* Padding around each company name */
-    border: 2px solid #007bff; /* Border around each company name */
-    border-radius: 5px; /* Rounded corners for the border */
-    background-color: #ffffff; /* Background color inside the border */
-    font-family: 'Arial', sans-serif; /* Change font family */
-    font-weight: bold; /* Bold font weight */
-    line-height: 1.5; /* Adjust line height for better readability */
-    text-align: center; /* Center the text inside each box */
-}
-
-/* Styles for the Footer */
-.footer {
-    background-color: #007bff;
-    color: #ffffff;
-    padding: 10px 20px; /* Reduced padding */
     text-align: center;
+}
+
+.landing-clients-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    gap: 20px; 
+    padding: 15px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 16px;
+    margin: 0 auto; 
+}
+
+.landing-client-company-name {
+    padding: 10px 20px; 
+    font-family: 'Arial', sans-serif; 
+    font-weight: bold; 
+    line-height: 1.5; 
+    text-align: center; 
     font-size: 1.2rem;
-    margin-top: 40px;
-    width: 100%; /* Full width to fit the page */
-    box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
-    height: 50px; /* Adjust height similar to navbar */
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+.landing-client-company-name:hover {
+    transform: translateY(-5px);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .landing-clients-box {
+        background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        border-radius: 16px;
+    }
+
+    .landing-client-company-name {
+        font-size: 1.2rem;
+        background-color: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+    }
+
+    .landing-client-company-name:hover {
+        transform: translateY(-5px);
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+
+    .landing-title {
+        font-size: 2rem;
+    }
+
+    .landing-description {
+        font-size: 1.1rem;
+    }
+
+    .landing-about-title {
+        font-size: 1.5rem;
+    }
+
+    .landing-about-description {
+        font-size: 1rem;
+    }
 }
