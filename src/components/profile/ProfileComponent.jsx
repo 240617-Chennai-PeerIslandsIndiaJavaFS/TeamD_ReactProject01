@@ -76,7 +76,7 @@ const ProfileComponent = () => {
                             className="profile-image"
                         />
                     ) : (
-                        <FontAwesomeIcon icon={faUserCircle} className="profile-icon" />
+                        <FontAwesomeIcon icon={faUserCircle} className="profile-icon" style={{width: "150px",height: "150px",color:"#5d7285",marginBottom:"16px"}}/>
                     )}
                     <label className="upload-button">
                         Upload Profile

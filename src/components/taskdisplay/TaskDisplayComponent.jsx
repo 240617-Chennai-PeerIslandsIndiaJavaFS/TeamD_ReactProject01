@@ -2,48 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ResetButton from '../buttons/ResetButton';
 import './TaskDisplayComponent.css';
+import { userContext } from '../Context/UserContextComponent';
+import { useContext } from 'react';
 
 // Sample employee data
-const employees = [
-  {
-    "employeeId": 1,
-    "employeeName": "John Doe",
-    "email": "john.doe@example.com",
-    "dateOfJoining": "2024-01-15T09:00:00.000+00:00",
-    "role": "DEVELOPER",
-    "description": "Software developer specializing in backend development.",
-    "phone": "9000000001",
-    "status": "ACTIVE",
-    "password": "developerPass123",
-    "skills": []
-  },
-  {
-    "employeeId": 2,
-    "employeeName": "Jane Smith",
-    "email": "jane.smith@example.com",
-    "dateOfJoining": "2024-02-20T09:00:00.000+00:00",
-    "role": "TESTER",
-    "description": "Quality assurance tester with a focus on automated testing.",
-    "phone": "9000000002",
-    "status": "ACTIVE",
-    "password": "testerPass123",
-    "skills": []
-  },
-  {
-    "employeeId": 5,
-    "employeeName": "Emily Brown",
-    "email": "associate1@example.com",
-    "dateOfJoining": "2024-05-09T18:30:00.000+00:00",
-    "role": "ASSOCIATE",
-    "description": "Software associate involved in coding and debugging.",
-    "phone": "9000000005",
-    "status": "ACTIVE",
-    "password": "associatePass123",
-    "skills": []
-  }
-];
 
-const TaskDisplayComponent = () => {
+
+const TaskDisplayComponent = ({taskid}) => {
     const [task, setTask] = useState({});
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
@@ -52,10 +17,12 @@ const TaskDisplayComponent = () => {
     const [editedStartDate, setEditedStartDate] = useState('');
     const [editedEndDate, setEditedEndDate] = useState('');
     const [timeline, setTimeline] = useState([]);
+    const { userDetail, setUserDetail, projects, setProjects } = useContext(userContext);
+
 
     useEffect(() => {
         // Fetch task data from API
-        axios.get('http://localhost:8080/api/tasks/1')
+        axios.get(`http://localhost:8080/api/tasks/${taskid}`)
             .then(response => {
                 const taskData = response.data;
                 setTask(taskData);
@@ -66,7 +33,7 @@ const TaskDisplayComponent = () => {
             .catch(error => console.error('Error fetching task:', error));
 
         // Fetch comments from API
-        axios.get('http://localhost:8080/api/comments/task/1')
+        axios.get(`http://localhost:8080/api/comments/task/${taskid}`)
             .then(response => {
                 // Ensure comments are set as an array
                 setComments(Array.isArray(response.data.data) ? response.data.data : []);
@@ -74,7 +41,7 @@ const TaskDisplayComponent = () => {
             .catch(error => console.error('Error fetching comments:', error));
 
         // Fetch timeline data from API
-        axios.get('http://localhost:8080/api/timelines/task/1')
+        axios.get(`http://localhost:8080/api/timelines/task/${taskid}`)
             .then(response => {
                 // Ensure timeline data is set as an array
                 console.log(response.data.data);
@@ -88,13 +55,13 @@ const TaskDisplayComponent = () => {
     const addComment = () => {
         if (newComment.trim() !== '') {
             // Example of employeeId for demonstration
-            const exampleEmployeeId = 5; // You might get this dynamically based on the logged-in user
+            // const exampleEmployeeId = 5; // You might get this dynamically based on the logged-in user
 
             const newCommentData = {
                 comment: newComment,
                 timestamp: new Date().toISOString(),
                 type: 'user',
-                user: { employeeId: exampleEmployeeId },
+                user: { employeeId: userDetail.employeeId },
                 task: { taskId: task.taskId }
             };
 
@@ -107,10 +74,10 @@ const TaskDisplayComponent = () => {
         }
     };
 
-    const getEmployeeName = (employeeId) => {
-        const employee = employees.find(emp => emp.employeeId === employeeId);
-        return employee ? employee.employeeName : 'Unknown';
-    };
+    // const getEmployeeName = (employeeId) => {
+    //     const employee = employees.find(emp => emp.employeeId === employeeId);
+    //     return employee ? employee.employeeName : 'Unknown';
+    // };
 
     const deleteTask = () => {
         axios.delete(`http://localhost:8080/api/tasks/${task.taskId}`)
@@ -197,7 +164,8 @@ const TaskDisplayComponent = () => {
                 <ul className="comment-list">
                     {comments.map((comment, index) => (
                         <li key={index} className="comment-item">
-                            <strong>{getEmployeeName(comment.user.employeeId)}:</strong> {comment.comment}
+                            {/* <strong>{getEmployeeName(comment.user.employeeId)}:</strong> {comment.comment} */}
+                            <strong>{comment.user.employeeName}:</strong> {comment.comment}
                         </li>
                     ))}
                 </ul>
