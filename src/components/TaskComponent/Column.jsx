@@ -3,7 +3,7 @@ import { Droppable } from '@hello-pangea/dnd';
 import TaskCard from './TaskCard';
 import './Column.css';
 
-const Column = ({ columnId, columnTitle, tasks }) => {
+const Column = ({ columnId, columnTitle, tasks,openModal }) => {
     return (
         <div className="column">
             <h2 className='milestone-header'>{columnTitle}</h2>
@@ -19,6 +19,7 @@ const Column = ({ columnId, columnTitle, tasks }) => {
                                 key={task.taskId}
                                 task={task}
                                 index={index}
+                                openModal={openModal}
                             />
                         ))}
                         {provided.placeholder}

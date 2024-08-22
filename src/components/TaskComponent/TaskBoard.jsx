@@ -16,7 +16,7 @@ const MILESTONES = {
     CLOSED: 'Closed'
 };
 
-const TaskBoard = ({ project }) => {
+const TaskBoard = ({ project ,openModal}) => {
     const { userDetail, setUserDetail, projects, setProjects } = useContext(userContext);
     const [columns, setColumns] = useState({});
     const [tasks, setTasks] = useState([]);
@@ -173,6 +173,7 @@ const TaskBoard = ({ project }) => {
                                 columnId={column.id}
                                 columnTitle={column.title}
                                 tasks={columnTasks}
+                                openModal={openModal}
                             />
                         );
                     })}

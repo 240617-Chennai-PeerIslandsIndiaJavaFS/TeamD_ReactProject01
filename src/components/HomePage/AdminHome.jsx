@@ -50,6 +50,12 @@ function AdminHome() {
     setModalOpen(true);
   };
 
+  
+  const closeModal = () => {
+    setModalOpen(false);
+    setModalContent(null);
+};
+
   useEffect(() => {
     // Handle user details if needed in the effect
   }, [userDetail]);
@@ -159,7 +165,7 @@ function AdminHome() {
             )}
             <div id="project">
               {projectDetails === "task" && adminContext > -1 ? (<>
-                 <TaskBoard project={adminContext} />
+                <TaskBoard project={adminContext} openModal={openModal}/>
                 </>
               ) : projectDetails === "details" ? (
                 <>
@@ -184,7 +190,7 @@ function AdminHome() {
         </div>
       </div>
 
-      <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)} content={modalContent} />
+      <Modal isOpen={isModalOpen} onClose={closeModal} content={modalContent} />
 
       <div className={`${show ? 'content' : ''}`}>
         {/* <Copyright/> */}
