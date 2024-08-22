@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './LandingPage.css';
 import logo from '../../images/logo.png'; // Adjust paths if needed
 import humanImage from '../../images/homeimage.png'; // Adjust paths if needed
 import ResetButton from '../buttons/ResetButton'; // Adjust path if needed
 import { useNavigate } from 'react-router-dom';
+import Footer from '../Footer/Footer'; // Import the new Footer component
+import './LandingPage.css';
+
 const LandingPage = () => {
     const [clients, setClients] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const navigate=useNavigate();
+    const navigate = useNavigate();
+
     useEffect(() => {
         const fetchClients = async () => {
             try {
@@ -31,20 +34,20 @@ const LandingPage = () => {
     }, []);
 
     const handleButtonClick = () => {
-        navigate("/login")
+        navigate("/login");
     };
 
     return (
         <div className="landing-container">
-            <nav className="landing navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+            <nav className="landing-navbar navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
                 <a className="navbar-brand" href="#">REV TASK MANAGEMENT</a>
             </nav>
-            <div className="container mt-5 pt-5">
-                <div className="row align-items-center">
-                    <div className="col-lg-6 text-center text-lg-left">
-                        <img src={logo} alt="logo" id="logo" className="img-fluid mb-3" />
-                        <h2 className="title">REVTASK MANAGEMENT SOFTWARE</h2>
-                        <p className="description">
+            <div className="container mt-1">
+                <div className="row align-items-center p-3">
+                    <div className="col-lg-6 text-center text-lg-left p-3">
+                        <img src={logo} alt="logo" id="landing-logo" className="img-fluid mb-3" />
+                        <h2 className="landing-title">REVTASK MANAGEMENT SOFTWARE</h2>
+                        <p className="landing-description">
                             RevTaskManagement streamlines task organization and enhances productivity for work and personal tasks. It offers efficient task delegation and built-in effort estimation to help users plan and manage tasks effectively.
                         </p>
                         <ResetButton onClick={handleButtonClick} value="Get Started" />
@@ -55,11 +58,11 @@ const LandingPage = () => {
                 </div>
             </div>
             <div className="container mt-5">
-                <h2 className="about-title">About Our Application</h2>
-                <p className="about-description">
+                <h2 className="landing-about-title">About Our Application</h2>
+                <p className="landing-about-description">
                     RevTaskManagement is designed to make your task management easier and more efficient. With our application, you can:
                 </p>
-                <ul className="about-points list-unstyled">
+                <ul className="landing-about-points">
                     <li className="shadow-sm p-3 mb-4 bg-light rounded">Efficiently manage tasks across multiple projects.</li>
                     <li className="shadow-sm p-3 mb-4 bg-light rounded">Track milestones and deadlines with ease.</li>
                     <li className="shadow-sm p-3 mb-4 bg-light rounded">Delegate tasks effectively to team members.</li>
@@ -67,23 +70,21 @@ const LandingPage = () => {
                     <li className="shadow-sm p-3 mb-4 bg-light rounded">Maintain a high level of productivity with organized workflows.</li>
                 </ul>
             </div>
-            <div className="container mt-5">
-                <h2 className="clients-title">Our Clients</h2>
+            <div className="container mt-5 mb-5">
+                <h2 className="landing-clients-title">Our Clients</h2>
                 {loading && <p>Loading clients...</p>}
                 {error && <p>{error}</p>}
                 {!loading && !error && (
-                    <div className="clients-box">
+                    <div className="landing-clients-box">
                         {clients.map(client => (
-                            <div key={client.clientId} className="client-company-name">
+                            <div key={client.clientId} className="landing-client-company-name">
                                 {client.companyName}
                             </div>
                         ))}
                     </div>
                 )}
             </div>
-            <footer className="footer bg-primary text-white text-center py-3">
-                <p>&copy; 2024 RevTaskManagement. All rights reserved.</p>
-            </footer>
+            <Footer  /> {/* Add the Footer component */}
         </div>
     );
 };
