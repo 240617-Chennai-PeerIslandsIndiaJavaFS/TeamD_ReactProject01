@@ -1,15 +1,25 @@
 import React from 'react'
 import {Chart} from "react-google-charts"
 
-export const Analysis = ({title,data}) => {
+export const Analysis = ({title,data,pie}) => {
     const chartData = [
         ['Task', 'Hours per Day'],
         ...data,
       ];
-      const options = {
-        title: title,
-        is3D:true
-      };
+      let options;
+      if(pie){
+        options = {
+          title: title,
+          pieHole: 0.4,
+      }
+    }
+      else{
+        options = {
+          title: title,
+          is3D:true,
+        }
+    }
+     
     
   return (
     <div style={{height:"500px",width:"100%"}}>
@@ -23,3 +33,4 @@ export const Analysis = ({title,data}) => {
     </div>
   )
 }
+

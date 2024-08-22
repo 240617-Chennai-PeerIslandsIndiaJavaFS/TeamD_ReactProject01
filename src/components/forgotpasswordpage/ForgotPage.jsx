@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import image from '../../images/forgot-password-image.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const ForgotPage = () => {
     const [otp, saveOTP] = useState("");
@@ -107,6 +108,7 @@ const ForgotPage = () => {
                                                 required
                                             />
                                         </div>
+                                        <Link to="/login">login</Link>
                                         <div className='form-group'>
                                             <button className='btn btn-primary forget-button' onClick={verifyOTP}>Verify</button>
                                         </div>
@@ -136,8 +138,11 @@ const ForgotPage = () => {
                                                 required
                                             />
                                         </div>
+                                        <Link to="/login">login</Link>
+
                                         <button className='btn btn-primary forget-button' onClick={resetPassword}>Reset</button>
                                     </>
+                                    
                             }
                         </form>
                     </div>

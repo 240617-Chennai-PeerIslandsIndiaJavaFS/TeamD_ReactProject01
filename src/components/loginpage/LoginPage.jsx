@@ -4,9 +4,8 @@ import { userContext } from '../Context/UserContextComponent';
 import "./LoginPage.css"
 import axios from 'axios';
 import { json, Link,useNavigate} from 'react-router-dom';
-function LoginPage() {
+function LoginPage({onLogin}) {
 
-    const {userDetail,setUserDetail,projects,setProjects} = useContext(userContext);
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
     const navigate = useNavigate();
@@ -18,7 +17,7 @@ function LoginPage() {
                 if(response.data.status==202){
                     console.log("Login successful");
                     localStorage.setItem("user",JSON.stringify(response.data.data));
-                    setUserDetail(JSON.parse(localStorage.getItem("user")))
+                    onLogin();
                     navigate("/home")
                 }
                 else{
@@ -42,30 +41,7 @@ function LoginPage() {
         setPassword("");
     }
 
-    const fetchProjects = async(userData)=>{
-        // console.log(userData);
-        let url;
-        if(userData.user_role === "ADMIN")
-            url = "http://localhost:3001/projects";
-        else if(userData.user_role === "MANAGER" || userData.user_role === "ASSOCIATE")
-            // url = `http://localhost:3001/projects?manager=${userData.user_name}`;
-            url = `http://localhost:3001/projects?manager=User2`;
-
-        if(url){
-            try{
-                const projectResponse = await axios.get(url);
-                // console.log("API Response:", typeof(projectResponse.data));
-                if (Array.isArray(projectResponse.data)) {
-                    // console.log("Array it is")
-                    setProjects(projectResponse.data);
-                    // console.log(projectResponse.data);
-                }
-            }
-            catch(err){
-                console.log(err);
-            }
-        }
-    }
+    
 
     return (
 
@@ -86,8 +62,7 @@ function LoginPage() {
                         <input type="password" id='password' name='password' value={password} onChange={(e)=>{setPassword(e.target.value)}} required/>
                     </div>
                     <div className="form-group terms">
-                        <input type="checkbox" name="terms" id="terms" />
-                        <label htmlFor="terms">Term & Conditions</label>
+                      
                         <Link to="/reset" className='forgot-password'>Forgot Password</Link>
                     </div>
                     <button type="submit" className="login-button">Log in</button>

@@ -129,6 +129,9 @@ const TaskBoard = ({ project ,openModal}) => {
                         timestamp: currentTime,
                         task: {
                             taskId: taskId
+                        },
+                        employee:{
+                            employeeId:userDetail.employeeId
                         }
                     }),
                 });
@@ -137,12 +140,25 @@ const TaskBoard = ({ project ,openModal}) => {
                 console.error('Error updating task milestone:', error);
             }
             console.log(taskId);
+            axios.put(`http://localhost:8080/api/tasks/${taskId}`,{"current_status":destination.droppableId})
+            .then((response)=>{
+                document.getElementById('update').style.color="green";
+                document.getElementById('update').innerHTML='Task updated successfully';
+                setTimeout(()=>{
+                    document.getElementById('update').style.color="black";
+                    document.getElementById('update').innerHTML='';
+                },5000);
+            })
+            .catch((error)=>{
+                alert('Error updating task milestone')
+            })
         }
     };
     
 
     return (
         <div className="task-board">
+            <span id='update'></span>
             <DragDropContext onDragEnd={onDragEnd}>
                 <div className="columns-container">
                     {Object.keys(columns).map((columnId) => {
