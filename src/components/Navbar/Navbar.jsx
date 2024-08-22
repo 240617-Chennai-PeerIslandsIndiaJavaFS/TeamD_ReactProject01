@@ -13,6 +13,8 @@ const Navbar = ({ show, toggleNavbar, setNavigate,adminContext}) => {
   const { userDetail, setUserDetail, projects, setProjects } = useContext(userContext);
 
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+
+  const[displayProfile, setDisplayProfile] = useState(false);
   const navigate=useNavigate();
   useEffect(() => {
     const timer = setInterval(() => {
@@ -85,6 +87,17 @@ const Navbar = ({ show, toggleNavbar, setNavigate,adminContext}) => {
       navigate("/login")
   }
 
+  const setProfile=()=>{
+    if(displayProfile){
+      adminContext("analysis")
+      setDisplayProfile(false)
+    }
+    else{
+      adminContext("profile")
+      setDisplayProfile(true)
+    }
+  }
+
   return (
     <>
       <header className={`header ${show ? 'body-pd' : ''}`} id="header">
@@ -95,11 +108,11 @@ const Navbar = ({ show, toggleNavbar, setNavigate,adminContext}) => {
           <FontAwesomeIcon icon={faClock} className="clock-icon" />
           {currentTime}
         </div>
-        <div className="profile" style={{cursor:"pointer"}} onClick={()=>{adminContext("profile")}}>
-          <div className="header_img" onClick={()=>adminContext("profile")}>
+        <div className="profile" style={{cursor:"pointer"}} onClick={setProfile}>
+          <div className="header_img" >
             <FontAwesomeIcon icon={faCircleUser} />
           </div>
-          <p className="profile-name">{userDetail.user_name}</p>
+          <p className="profile-name" style={{color: "#5d7285"}}>{userDetail.employeeName}</p>
         </div>
       </header>
       <div className={`l-navbar ${show ? 'show' : ''}`} id="nav-bar">

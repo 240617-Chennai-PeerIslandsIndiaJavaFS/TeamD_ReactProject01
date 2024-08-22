@@ -17,10 +17,14 @@ const TaskCard = ({ task, index }) => {
                     <div className="card-body">
                         <div className="task-header">
                             <h6 className="card-title">{taskName}</h6>
-                        </div>
+                        </div>  
                         <div className="task-body">{description}</div>
                         <div className="task-footer">
-                            <span>{assignees.length} assignees</span>
+                            {assignees.map((assign)=>{
+                                return(
+                                    <span>{assign.employeeName}</span>
+                                )
+                            })}
                         </div>
                     </div>
                 </div>

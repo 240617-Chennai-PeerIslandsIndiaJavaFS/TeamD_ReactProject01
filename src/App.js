@@ -1,28 +1,46 @@
-
-import { UserContextComponent } from './components/Context/UserContextComponent';
-import LoginPage from './components/loginpage/LoginPage';
-import './components/messages/MessageStyles.css';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LandingPage from './components/landingpage/LandingPage';
+import LoginPage from './components/loginpage/LoginPage';
 import ForgotPage from './components/forgotpasswordpage/ForgotPage';
 import AdminHome from './components/HomePage/AdminHome';
+import { UserContextComponent } from './components/Context/UserContextComponent';
+import './components/messages/MessageStyles.css';
 import './App.css';
-import TaskBoard from './components/TaskComponent/TaskBoard';
-
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(()=>{
+    if("user" in localStorage){
+      setIsLoggedIn(true);
+    }
+  },[])
+  
+
   return (
-    <UserContextComponent>
     <Router>
       <Routes>
-          <Route path='/' exact element={<LandingPage/>}/>
-          <Route path="/login" exact element={<LoginPage />} />
-          <Route path="/reset" exact element={<ForgotPage></ForgotPage>} />
-          {/* <Route path='/home' exact element={<AdminHome></AdminHome>}/> */}
-          <Route path='/home' exact element={<AdminHome/>}/>
+        (!isLoggedIn ?(
+        <Route path='/' exact element={<LandingPage />} />
+        <Route path='/login' exact element={<LoginPage onLogin={() => setIsLoggedIn(true)} />} />
+        <Route path='/reset' exact element={<ForgotPage />} />):
+        (
+          
+          <Route
+            path='/home'
+            exact
+            element={
+              <UserContextComponent>
+                <AdminHome />
+              </UserContextComponent>
+            }
+          />
+        
+        )
+        )
       </Routes>
     </Router>
-    </UserContextComponent>
   );
 }
+
 export default App;
