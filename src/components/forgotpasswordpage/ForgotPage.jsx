@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ForgotPage1.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import image from '../../images/forget-password-image.png';
+import image from '../../images/forgot-password-image.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -69,14 +69,14 @@ const ForgotPage = () => {
     };
 
     return (
-        <div className="container-fluid forgot-password-container">
-            <div className="row justify-content-center align-items-center min-vh-100">
-                <div className="col-md-6 col-lg-4 d-none d-md-flex justify-content-center align-items-center forgot-password-image">
-                    <img src={image} alt="Forgot Password" className="img-fluid" />
+        <div className="forgot-password-page">
+            <div className="forgot-password-container">
+                <div className="forgot-password-image">
+                    <img src={image} alt="Forgot Password" />
                 </div>
-                <div className="col-12 col-md-6 col-lg-4 forgot-password-form">
+                <div className="forgot-password-form">
                     <div className="forgot-password-form-container">
-                        <h2>Reset Password</h2>
+                        <h2 className='forget-page-title'>Reset Password</h2>
                         <form>
                             {
                                 otpTrue ?
@@ -108,7 +108,7 @@ const ForgotPage = () => {
                                             />
                                         </div>
                                         <div className='form-group'>
-                                            <button className='btn btn-primary' onClick={verifyOTP}>Verify</button>
+                                            <button className='btn btn-primary forget-button' onClick={verifyOTP}>Verify</button>
                                         </div>
                                     </>
                                     :
@@ -136,7 +136,7 @@ const ForgotPage = () => {
                                                 required
                                             />
                                         </div>
-                                        <button className='btn btn-primary' onClick={resetPassword}>Reset</button>
+                                        <button className='btn btn-primary forget-button' onClick={resetPassword}>Reset</button>
                                     </>
                             }
                         </form>

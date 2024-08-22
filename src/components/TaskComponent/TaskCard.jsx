@@ -1,9 +1,13 @@
 import React from 'react';
 import { Draggable } from '@hello-pangea/dnd';
 import './TaskCard.css';
+import TaskDisplayComponent from './../taskdisplay/TaskDisplayComponent';
 
-const TaskCard = ({ task, index }) => {
+const TaskCard = ({ task, index ,openModal}) => {
     const { taskId, taskName, description, assignees } = task;
+    const handleDoubleClick = () => {
+        openModal(<TaskDisplayComponent taskid={taskId} />);
+    };
     
     return (
         <Draggable draggableId={taskId.toString()} index={index}>
@@ -13,6 +17,7 @@ const TaskCard = ({ task, index }) => {
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
+                    onDoubleClick={handleDoubleClick}
                 >
                     <div className="card-body">
                         <div className="task-header">
