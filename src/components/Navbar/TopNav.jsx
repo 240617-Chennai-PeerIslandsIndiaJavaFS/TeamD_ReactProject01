@@ -12,27 +12,27 @@ export const TopNav = ({options,project,adminContext,projectDetails}) => {
   
   return (
     <div>
-    <nav class="top-nav navbar bg-body-tertiary">
-  <form class="container-fluid justify-content-start">
+    <nav className="top-nav navbar bg-body-tertiary">
+  <form className="container-fluid justify-content-start">
     {/* {console.log(options)} */}
     {options=="user"?(
         <>
-            <button class="btn btn-outline-success me-2" type="button" onClick={()=>{adminContext("createUser")}}>Create User</button>
-            <button class="btn btn-outline-success me-2" type="button" onClick={()=>{adminContext("updateUser")}}>Update User</button>
-            <button class="btn btn-outline-success me-2" type="button" onClick={()=>{adminContext("viewUser")}}>View Users</button>
+            <button className="btn btn-outline-success me-2" type="button" onClick={()=>{adminContext("createUser")}}>Create User</button>
+            <button className="btn btn-outline-success me-2" type="button" onClick={()=>{adminContext("updateUser")}}>Update User</button>
+            <button className="btn btn-outline-success me-2" type="button" onClick={()=>{adminContext("viewUser")}}>View Users</button>
         </>
     ):options=="project"?
     (
         <>
-            <button class="btn btn-outline-success me-2" type="button" onClick={()=>{adminContext("createProject")}}>Create Project</button>
-            <button class="btn btn-outline-success me-2" type="button" onClick={()=>{adminContext("updateProject")}}>Update Project</button>
-            <button class="btn btn-outline-success me-2" type="button" onClick={()=>{adminContext("viewProject")}}>View Projects</button>
+            <button className="btn btn-outline-success me-2" type="button" onClick={()=>{adminContext("createProject")}}>Create Project</button>
+            <button className="btn btn-outline-success me-2" type="button" onClick={()=>{adminContext("updateProject")}}>Update Project</button>
+            <button className="btn btn-outline-success me-2" type="button" onClick={()=>{adminContext("viewProject")}}>View Projects</button>
         </>
     ):options=="client"?(
         <>
-            <button class="btn btn-outline-success me-2" type="button" onClick={()=>{adminContext("createClient")}}>Create Client</button>
-            <button class="btn btn-outline-success me-2" type="button" onClick={()=>{adminContext("updateClient")}}>Update Client</button>
-            <button class="btn btn-outline-success me-2" type="button" onClick={()=>{adminContext("viewClient")}}>View Clients</button>
+            <button className="btn btn-outline-success me-2" type="button" onClick={()=>{adminContext("createClient")}}>Create Client</button>
+            <button className="btn btn-outline-success me-2" type="button" onClick={()=>{adminContext("updateClient")}}>Update Client</button>
+            <button className="btn btn-outline-success me-2" type="button" onClick={()=>{adminContext("viewClient")}}>View Clients</button>
         </>
     )
     :options=="viewProjects"?(

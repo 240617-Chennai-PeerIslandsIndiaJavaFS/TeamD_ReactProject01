@@ -180,7 +180,7 @@ function AdminHome() {
                 </>
               ) : projectDetails === "createTask" ? (
                 <>
-                  <CreateTaskForm project={projects[adminContext]} />
+                  <CreateTaskForm project={projects[adminContext]} update={setProjectDetails}/>
                 </>
               ) :(
                 <></>

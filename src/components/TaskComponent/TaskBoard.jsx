@@ -130,9 +130,7 @@ const TaskBoard = ({ project ,openModal}) => {
                         task: {
                             taskId: taskId
                         },
-                        employee:{
-                            employeeId:userDetail.employeeId
-                        }
+                        employeeName: userDetail.employeeName
                     }),
                 });
                 console.log('Task milestone updated successfully');

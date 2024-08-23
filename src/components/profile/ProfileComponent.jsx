@@ -54,7 +54,7 @@ const ProfileComponent = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('user');
-        navigate("/login")
+        navigate(-1)
     };
 
     const handleResetPassword = () => {
