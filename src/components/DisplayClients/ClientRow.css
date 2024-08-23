@@ -7,13 +7,16 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 16px;
-    margin: 8px 16px;
     transition: transform 0.2s;
     font-family: 'Poppins', sans-serif;
+    margin: auto;
+    width: 100%;
+    margin-bottom: 1rem;
 }
 
 .client-row:hover {
     transform: translateY(-8px);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .client-info {
@@ -28,14 +31,26 @@
     margin: 0;
 }
 
-@media (min-width: 768px) {
+.view-details-button {
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+@media (min-width: 1024px) {
     .client-row {
         flex-direction: row;
+        width: 80%;
     }
 
     .client-info {
+        width: 100%;
         flex-direction: row;
-        /* justify-content: space-evenly; */
+        justify-content: space-around;
         margin-bottom: 0px;
     }
 }

@@ -138,7 +138,7 @@ function AdminHome() {
             ) : adminContext === "updateClient" ? (
               <ClientForm isUpdate={true} />
             ) : adminContext === "viewClient" ? (
-              <DisplayClients />
+              <DisplayClients openModal={openModal}/>
             ) : adminContext === "profile" ? (
               <>
                 <ProfileComponent/>
@@ -151,7 +151,7 @@ function AdminHome() {
             </>
             :adminContext==="client"?
             <>
-                          <DisplayClients />
+                          <DisplayClients openModal={openModal}/> 
             </>:adminContext==="project"?
             <>
                           <DisplayProject />
@@ -170,7 +170,11 @@ function AdminHome() {
               ) : projectDetails === "details" ? (
                 <>
                   <ProjectCard project={projects[adminContext]} />
-                  <ClientRow client={projects[adminContext].client} />
+                  {/* <br />
+                  <br /> */}
+                  <div className='client-display-component-home' style={{width:"50%",margin:"24px auto"}}>
+                    <ClientRow client={projects[adminContext].client} openModal={openModal}/>
+                  </div>
                 </>
               ) : projectDetails === "team" ? (
                 <>

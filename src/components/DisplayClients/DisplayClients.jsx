@@ -3,7 +3,7 @@ import axios from 'axios';
 import ClientRow from './ClientRow';
 import './DisplayClients.css';
 
-function DisplayClients() {
+function DisplayClients({ openModal }) {
     const [clients, setClients] = useState([]);
 
     const fetchClients = async () => {
@@ -15,22 +15,22 @@ function DisplayClients() {
         }
     };
 
-   useEffect(()=>{
-    fetchClients()
-   },[])
+    useEffect(() => {
+        fetchClients();
+    }, []);
+
+    
 
     return (
         <>
-            <div>
-               
-                    <div className="clients-container">
-                        {Array.isArray(clients) && clients.length > 0 ? (
-                            clients.map((client) => <ClientRow key={client.clientId} client={client} />)
-                        ) : (
-                            <p>No clients available.</p>
-                        )}
-                    </div>
-              
+            <div className="client-display-component">
+                <div className="clients-container">
+                    {Array.isArray(clients) && clients.length > 0 ? (
+                        clients.map((client) => <ClientRow key={client.clientId} client={client} openModal={openModal} />)
+                    ) : (
+                        <p>No clients available.</p>
+                    )}
+                </div>
             </div>
         </>
     );
