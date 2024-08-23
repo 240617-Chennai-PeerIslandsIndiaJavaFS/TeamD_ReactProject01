@@ -327,6 +327,7 @@ const UserForm = ({ isUpdate = false }) => {
                       className="form-control"
                       id="otherSkill"
                       name="otherSkill"
+                      placeholder="skill"
                       value={otherSkill}
                       onChange={(e) => setOtherSkill(e.target.value)}
                       disabled={isUpdate && !isEmployeeFound}
@@ -336,7 +337,7 @@ const UserForm = ({ isUpdate = false }) => {
                       className="form-control mt-2"
                       id="skillDescription"
                       name="skillDescription"
-                      placeholder="Enter skill description"
+                      placeholder="description"
                       value={skillDescription}
                       onChange={(e) => setSkillDescription(e.target.value)}
                       disabled={isUpdate && !isEmployeeFound}

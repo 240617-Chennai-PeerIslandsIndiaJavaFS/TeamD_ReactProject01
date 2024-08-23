@@ -6,7 +6,7 @@ const userContext = createContext();
 function UserContextComponent({children}) {
 
   const [userDetail,setUserDetail] = useState(JSON.parse(localStorage.getItem("user")));
-  const [projects,setProjects] = useState();
+  const [projects,setProjects] = useState([]);
 
   useEffect(()=>{
     if(userDetail.role==="ADMIN"){

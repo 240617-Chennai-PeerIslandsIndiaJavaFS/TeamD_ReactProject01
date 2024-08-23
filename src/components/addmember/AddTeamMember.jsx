@@ -28,7 +28,7 @@ const AddTeamMember = ({ project }) => {
         };
 
         fetchMembers();
-    }, [project.projectId]);
+    }, []);
 
     // Search for employees by name
     const handleSearch = async (e) => {

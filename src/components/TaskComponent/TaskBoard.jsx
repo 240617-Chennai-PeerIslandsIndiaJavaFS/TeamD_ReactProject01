@@ -67,7 +67,7 @@ const TaskBoard = ({ project ,openModal}) => {
         };
 
         fetchTasks();
-    }, [project.projectId]);
+    }, [project]);
 
     
     

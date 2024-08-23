@@ -83,7 +83,6 @@ const Navbar = ({ show, toggleNavbar, setNavigate,adminContext}) => {
 
   const logoutClicked=()=>{
       localStorage.removeItem("user");
-      setProjects();
       navigate(-1)
   }
 

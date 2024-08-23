@@ -179,7 +179,7 @@ function AdminHome() {
               ) : projectDetails === "team" ? (
                 <>
 
-                  <h1>Team selected</h1>
+                  {/* <h1>Team selected</h1> */}
                   <AddTeamMember project={projects[adminContext]} />
                 </>
               ) : projectDetails === "createTask" ? (

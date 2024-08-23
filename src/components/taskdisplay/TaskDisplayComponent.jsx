@@ -69,7 +69,7 @@ const TaskDisplayComponent = ({taskid}) => {
             setComments([...comments, newCommentData]);
 
             // Optionally, send this new comment to the backend API
-            // axios.post('http://localhost:8080/api/comments', newCommentData);
+            axios.post('http://localhost:8080/api/comments', newCommentData);
             setNewComment('');
         }
     };
@@ -80,6 +80,7 @@ const TaskDisplayComponent = ({taskid}) => {
     // };
 
     const deleteTask = () => {
+        console.log(taskid);
         axios.delete(`http://localhost:8080/api/tasks/${task.taskId}`)
             .then(() => {
                 alert('Task Deleted');
