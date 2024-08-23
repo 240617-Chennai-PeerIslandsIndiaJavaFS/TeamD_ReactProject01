@@ -29,10 +29,12 @@ function App() {
           <Route
             path='/home'
             exact
-            element={
+            element={ isLoggedIn ? (
               <UserContextComponent>
                 <AdminHome />
               </UserContextComponent>
+            ):
+            (<LandingPage></LandingPage>)
             }
           />
         

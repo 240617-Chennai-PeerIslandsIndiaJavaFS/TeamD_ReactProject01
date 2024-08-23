@@ -42,7 +42,7 @@ const LandingPage = () => {
             <nav className="landing-navbar navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
                 <a className="navbar-brand" href="#">REV TASK MANAGEMENT</a>
             </nav>
-            <div className="container mt-1">
+            <div className="custom-container mt-1">
                 <div className="row align-items-center p-3">
                     <div className="col-lg-6 text-center text-lg-left p-3">
                         <img src={logo} alt="logo" id="landing-logo" className="img-fluid mb-3" />
@@ -57,7 +57,7 @@ const LandingPage = () => {
                     </div>
                 </div>
             </div>
-            <div className="container mt-5">
+            <div className="custom-container mt-5">
                 <h2 className="landing-about-title">About Our Application</h2>
                 <p className="landing-about-description">
                     RevTaskManagement is designed to make your task management easier and more efficient. With our application, you can:
@@ -65,12 +65,11 @@ const LandingPage = () => {
                 <ul className="landing-about-points">
                     <li className="shadow-sm p-3 mb-4 bg-light rounded">Efficiently manage tasks across multiple projects.</li>
                     <li className="shadow-sm p-3 mb-4 bg-light rounded">Track milestones and deadlines with ease.</li>
-                    <li className="shadow-sm p-3 mb-4 bg-light rounded">Delegate tasks effectively to team members.</li>
                     <li className="shadow-sm p-3 mb-4 bg-light rounded">Utilize built-in effort estimation tools for better planning.</li>
                     <li className="shadow-sm p-3 mb-4 bg-light rounded">Maintain a high level of productivity with organized workflows.</li>
                 </ul>
             </div>
-            <div className="container mt-5 mb-5">
+            <div className="custom-container mt-5 mb-5">
                 <h2 className="landing-clients-title">Our Clients</h2>
                 {loading && <p>Loading clients...</p>}
                 {error && <p>{error}</p>}
@@ -84,7 +83,7 @@ const LandingPage = () => {
                     </div>
                 )}
             </div>
-            <Footer  /> {/* Add the Footer component */}
+            <Footer /> {/* Add the Footer component */}
         </div>
     );
 };

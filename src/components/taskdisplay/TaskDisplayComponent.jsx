@@ -181,11 +181,16 @@ const TaskDisplayComponent = ({taskid}) => {
                     ))}
                 </ul>
             </div>
-
-
-            <div className="delete-task-button">
-                <ResetButton onClick={deleteTask} value="Delete Task" />
-            </div>
+            {
+                userDetail.role==="MANAGER"?(
+                    <div className="delete-task-button">
+                    <ResetButton onClick={deleteTask} value="Delete Task" />
+                </div>
+                )
+                :
+                <></>
+            }
+          
         </div>
     );
 };

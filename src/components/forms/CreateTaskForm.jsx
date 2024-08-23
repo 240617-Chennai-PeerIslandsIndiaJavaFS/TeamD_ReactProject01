@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Form.css'; // Import your custom CSS
 
-const TaskForm = ({ project }) => {
+const TaskForm = ({ project,update }) => {
   const [formData, setFormData] = useState({
     projectId: project.projectId,
     taskName: '',
@@ -13,8 +13,18 @@ const TaskForm = ({ project }) => {
     current_status:'IN_QUEUE',
     assignees: []
   });
+  let allUsers = project.team;
 
-  const allUsers = project.team;
+  useEffect(()=>{
+    axios.get(`http://localhost:8080/api/projects/${project.projectId}`)
+    .then((response)=>{
+      allUsers=response.data.data.team; 
+    })
+    .catch((err)=>{
+      alert("Error getting project")
+    })
+  },[])
+
   console.log(allUsers);
 
   const handleInputChange = (e) => {
@@ -60,20 +70,13 @@ const TaskForm = ({ project }) => {
       console.log(response);
       console.log(response.data);
       if (response.status === 201) {
-        document.getElementById("taskCreation").style.display = "block";
-        document.getElementById("taskCreation").style.color = "green";
-        document.getElementById("taskCreation").innerHTML = "Task created successfully!";
-        setTimeout(()=>{
-            document.getElementById("taskCreation").style.display = "none";
-        },6000)
+      update("task")
 
       } else {
         document.getElementById("taskCreation").style.display = "block";
         document.getElementById("taskCreation").style.color = "red";
         document.getElementById("taskCreation").innerHTML = "Task creation failed!";
-        setTimeout(()=>{
-            document.getElementById("taskCreation").style.display = "none";
-        },6000)
+       
 
       }
     })
@@ -86,10 +89,10 @@ const TaskForm = ({ project }) => {
         <div className="col-md-10">
           <div className="form">
             <h2>Create Task</h2>
+            <span id='taskCreation'></span>
             <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="taskName">Task Name</label>
-                <span id='taskCreation'></span>
                 <input
                   type="text"
                   className="form-control"
