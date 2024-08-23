@@ -105,7 +105,7 @@ const TaskDisplayComponent = ({taskid}) => {
 
     return (
         <div className="task-container">
-            <div className="task-header">
+            <div className="task-header hr-line">
                 <h3>{task.taskName}</h3>
             </div>
             <div className="task-details">
@@ -117,9 +117,9 @@ const TaskDisplayComponent = ({taskid}) => {
                         onChange={(e) => setEditedDescription(e.target.value)}
                     />
                 ) : (
-                    <p>{task.description}</p>
+                    <p className='hr-line'>{task.description}</p>
                 )}
-                <div className="date-edit-section">
+                <div className="date-edit-section hr-line">
                     <div className="date-container">
                         <label>Start Date</label>
                         {isEditing ? (
@@ -132,7 +132,7 @@ const TaskDisplayComponent = ({taskid}) => {
                             <p>{new Date(task.startDate).toLocaleDateString()}</p>
                         )}
                     </div>
-                    <div className="date-container">
+                    <div className="date-container hr-line">
                         <label>End Date</label>
                         {isEditing ? (
                             <input
@@ -150,7 +150,7 @@ const TaskDisplayComponent = ({taskid}) => {
                 </div>
             </div>
 
-            <div className="comments-section">
+            <div className="comments-section hr-line">
                 <label>Comments</label>
                 <div className="comment-input-container">
                     <textarea
@@ -176,7 +176,7 @@ const TaskDisplayComponent = ({taskid}) => {
                 <ul className="timeline-list">
                     {timeline.map((event) => (
                         <li key={event.timelineId} className="timeline-item">                            
-                            <strong>{event.milestone}</strong> - {new Date(event.timestamp).toLocaleString()}
+                            <strong>{event.milestone}</strong> - {new Date(event.timestamp).toLocaleString()} - {event.employeeName}
                         </li>  
                     ))}
                 </ul>
