@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import './Form.css';
+import api from '../../config/api';
 
 const ClientForm = ({ isUpdate = false }) => {
     const [client, setClient] = useState( {
@@ -25,7 +25,7 @@ const ClientForm = ({ isUpdate = false }) => {
     const handleSearch = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.get(`http://localhost:8080/api/clients/name?name=${searchName}`);
+            const response = await api.get(`/clients/name?name=${searchName}`);
             console.log(response.data.data);
             setClient(response.data.data);
             setIsClientFound(true);
@@ -41,11 +41,11 @@ const ClientForm = ({ isUpdate = false }) => {
         try {
             if (isUpdate && isClientFound) {
                 // Update client
-                await axios.put(`http://localhost:8080/api/clients/${client.clientId}`, client);
+                await api.put(`/clients/${client.clientId}`, client);
                 alert('Client updated successfully');
             } else {
                 // Create new client
-                const response = await axios.post('http://localhost:8080/api/clients', client);
+                const response = await api.post('/clients', client);
                 console.log('Client created:', response.data);
             }
 

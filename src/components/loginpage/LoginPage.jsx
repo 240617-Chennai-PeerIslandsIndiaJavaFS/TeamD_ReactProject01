@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import login from '../../images/Mobile login-amico.png'
 import { userContext } from '../Context/UserContextComponent';
 import "./LoginPage.css"
-import axios from 'axios';
+import api from '../../config/api';
 import { json, Link,useNavigate} from 'react-router-dom';
 function LoginPage({onLogin}) {
 
@@ -13,7 +13,7 @@ function LoginPage({onLogin}) {
 
     const handleSubmit = (e)=>{
         e.preventDefault();
-            const response = axios.get(`http://localhost:8080/api/employee/login?email=${email}&password=${password}`).then((response)=>{
+            const response = api.get(`/employee/login?email=${email}&password=${password}`).then((response)=>{
                 if(response.data.status==202){
                     console.log("Login successful");
                     localStorage.setItem("user",JSON.stringify(response.data.data));

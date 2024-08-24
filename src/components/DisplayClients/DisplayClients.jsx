@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import ClientRow from './ClientRow';
 import './DisplayClients.css';
+import api from '../../config/api';
 
 function DisplayClients({ openModal }) {
     const [clients, setClients] = useState([]);
 
     const fetchClients = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/clients');
+            const response = await api.get('/clients');
             setClients(response.data.data);
         } catch (error) {
             console.error('Error fetching clients:', error);

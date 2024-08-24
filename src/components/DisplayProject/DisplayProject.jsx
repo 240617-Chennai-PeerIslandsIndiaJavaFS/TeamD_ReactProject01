@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import ProjectCard from './ProjectCard';
 import './DisplayProject.css'
+import api from '../../config/api';
 
 function DisplayProject() {
     const [projects, setProjects] = useState([]);
@@ -9,7 +9,7 @@ function DisplayProject() {
     useEffect(() => {
         const fetchProjects = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/projects');
+                const response = await api.get('/projects');
                 setProjects(response.data.data); 
             } catch (error) {
                 console.error('Error fetching projects:', error);

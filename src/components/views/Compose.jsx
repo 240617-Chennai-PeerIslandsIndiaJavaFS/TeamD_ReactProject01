@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../config/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './GeneralStyles.css';
 
@@ -10,7 +10,7 @@ const Compose = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/messages/receiver/1');
+        const response = await api.get(`/messages/receiver/${userDetail.employeeId}`);
         setMessages(response.data.data);
       } catch (err) {
         setError('Error fetching messages');

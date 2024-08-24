@@ -3,8 +3,8 @@ import './ForgotPage1.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import image from '../../images/forgot-password-image.png';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import api from '../../config/api';
 
 const ForgotPage = () => {
     const [otp, saveOTP] = useState("");
@@ -20,7 +20,7 @@ const ForgotPage = () => {
         if (email === "") {
             showError("Please enter email address", "success");
         } else {
-            axios.get(`http://localhost:8080/api/employee/otp?email=${email}`)
+            api.get(`/employee/otp?email=${email}`)
                 .then((response) => {
                     saveOTP(response.data.data);
                     showError("Check your email for OTP", "success");
@@ -51,7 +51,7 @@ const ForgotPage = () => {
         } else if (password !== cpassword) {
             showError("Password and confirm password do not match", "resetCheck");
         } else {
-            axios.put(`http://localhost:8080/api/employee/reset?email=${email}&password=${password}`)
+            api.put(`/employee/reset?email=${email}&password=${password}`)
                 .then(() => {
                     navigate("/login");
                 })

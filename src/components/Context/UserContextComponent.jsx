@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, {createContext, useEffect, useState } from 'react'
+import api from '../../config/api';
 
 const userContext = createContext();
 
@@ -10,7 +11,7 @@ function UserContextComponent({children}) {
 
   useEffect(()=>{
     if(userDetail.role==="ADMIN"){
-      axios.get(`http://localhost:8080/api/projects`)
+      api.get(`/projects`)
       .then((response)=>{
         console.log("Setting projects");
         console.log(response.data.data);
@@ -21,7 +22,7 @@ function UserContextComponent({children}) {
       })
     }
     else{
-        axios.get(`http://localhost:8080/api/projects/employee/${userDetail.employeeId}`)
+        api.get(`/projects/employee/${userDetail.employeeId}`)
         .then((response)=>{
           console.log("Setting projects");
           console.log(response.data.data);

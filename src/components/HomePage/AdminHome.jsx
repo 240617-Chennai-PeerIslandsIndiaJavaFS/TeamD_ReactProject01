@@ -19,7 +19,7 @@ import ProfileComponent from '../profile/ProfileComponent';
 import TaskBoard from '../TaskComponent/TaskBoard';
 import Modal from '../Modal/Modal';
 import './Home.css';
-import axios from 'axios';
+import api from '../../config/api';
 import MessageDashboard from "../views/MessageDashboard"
 
 function AdminHome() {
@@ -72,10 +72,11 @@ function AdminHome() {
 
       projects.forEach((project) => {
         // Fetch tasks for each project
-        axios
-          .get(`http://localhost:8080/api/tasks/project/${project.projectId}`)
+        api
+          .get(`/tasks/project/${project.projectId}`)
           .then((response) => {
             const tasks = response.data;
+            console.log(tasks);
             tasks.forEach((task) => {
               updatedTaskData.forEach((td) => {
                 if (td[0] === task.current_status) {

@@ -4,7 +4,8 @@ import { userContext } from '../Context/UserContextComponent';
 import { useContext } from 'react';
 import Column from './Column';
 import './TaskBoard.css';
-import axios from 'axios';
+import api from '../../config/api';
+
 
 const MILESTONES = {
     IN_QUEUE: 'In Queue',
@@ -138,7 +139,7 @@ const TaskBoard = ({ project ,openModal}) => {
                 console.error('Error updating task milestone:', error);
             }
             console.log(taskId);
-            axios.put(`http://localhost:8080/api/tasks/${taskId}`,{"current_status":destination.droppableId})
+            api.put(`/tasks/${taskId}`,{"current_status":destination.droppableId})
             .then((response)=>{
                 document.getElementById('update').style.color="green";
                 document.getElementById('update').innerHTML='Task updated successfully';

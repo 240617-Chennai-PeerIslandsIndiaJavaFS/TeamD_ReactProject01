@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Message from './Message';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios';
+import api from '../../config/api';
 import './MessageStyles.css'; // Import the CSS file
 
 const DisplayMessages = () => {
@@ -9,7 +9,7 @@ const DisplayMessages = () => {
     const [expanded, setExpanded] = useState(null);
 
     useEffect(() => {
-       axios.get("http://localhost:3001/messages")
+       api.get("http://localhost:3001/messages")
        .then((response)=>{
             setMessages(response.data);
        })
