@@ -3,6 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import api from '../../config/api';
 import './Form.css';
 
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const UserForm = ({ isUpdate = false }) => {
   const [formData, setFormData] = useState({
     employeeId: '',
@@ -142,13 +145,13 @@ const UserForm = ({ isUpdate = false }) => {
           ...formData,
           skills: formData.skills.map(s => ({ skill: s.skill })) 
         });
-        alert('Employee updated successfully');
+        toast.success("employee updated successfully");
       } else {
         await api.post('/employee', {
           ...formData,
           skills: formData.skills.map(s => ({ skill: s.skill }))
         });
-        alert('Employee created successfully');
+        toast.success("employee created successfully");
       }
   
       setFormData({
@@ -367,6 +370,7 @@ const UserForm = ({ isUpdate = false }) => {
           </div>
         </div>
       </div>
+      <ToastContainer/>
     </div>
   );
 };

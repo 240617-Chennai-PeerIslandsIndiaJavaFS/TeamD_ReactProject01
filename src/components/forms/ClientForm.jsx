@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import './Form.css';
 import api from '../../config/api';
 
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const ClientForm = ({ isUpdate = false }) => {
     const [client, setClient] = useState( {
         clientId: '',
@@ -42,10 +45,11 @@ const ClientForm = ({ isUpdate = false }) => {
             if (isUpdate && isClientFound) {
                 // Update client
                 await api.put(`/clients/${client.clientId}`, client);
-                alert('Client updated successfully');
+                toast.success("client updated successfully")
             } else {
                 // Create new client
                 const response = await api.post('/clients', client);
+                toast.success("client created successfully")
                 console.log('Client created:', response.data);
             }
 
@@ -159,6 +163,7 @@ const ClientForm = ({ isUpdate = false }) => {
                     </button>
                 </div>
             </form>
+            <ToastContainer/>
         </div>
     );
 };

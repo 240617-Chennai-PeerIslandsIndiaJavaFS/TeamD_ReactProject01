@@ -3,6 +3,8 @@ import api from '../../config/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Form.css'; 
 
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const ProjectForm = ({ isUpdate = false }) => {
   const [formData, setFormData] = useState({
     projectId: '',
@@ -109,10 +111,10 @@ const ProjectForm = ({ isUpdate = false }) => {
 
       if (isUpdate && isProjectFound) {
         await api.put(`/projects/${formData.projectId}`, projectData);
-        alert('Project updated successfully');
+        toast.success("project updated successfully")
       } else {
         await api.post('/projects', projectData);
-        alert('Project created successfully');
+        toast.success("project created successfully")
       }
 
       setFormData({
@@ -284,6 +286,7 @@ const ProjectForm = ({ isUpdate = false }) => {
           </div>
         </div>
       </div>
+      <ToastContainer/>
     </div>
   );
 };
