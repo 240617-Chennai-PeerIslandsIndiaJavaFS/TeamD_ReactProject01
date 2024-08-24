@@ -14,7 +14,9 @@ const Navbar = ({ show, toggleNavbar, setNavigate,adminContext}) => {
 
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
 
-  const[displayProfile, setDisplayProfile] = useState(false);
+  // const[displayProfile, setDisplayProfile] = useState(false);
+  const [isProfileActive, setIsProfileActive] = useState(false);
+
   const navigate=useNavigate();
   useEffect(() => {
     const timer = setInterval(() => {
@@ -87,14 +89,20 @@ const Navbar = ({ show, toggleNavbar, setNavigate,adminContext}) => {
   }
 
   const setProfile=()=>{
-    if(displayProfile){
-      adminContext("analysis")
-      setDisplayProfile(false)
-    }
-    else{
-      adminContext("profile")
-      setDisplayProfile(true)
-    }
+    // if(displayProfile){
+    //   adminContext("analysis")
+    //   setDisplayProfile(false)
+    // }
+    // else{
+    //   adminContext("profile")
+    //   setDisplayProfile(true)
+    // }
+     if (!isProfileActive) {
+            adminContext("profile"); // Show profile first
+        } else {
+            adminContext("analysis"); // Then toggle to analysis
+        }
+    setIsProfileActive(!isProfileActive); 
   }
 
   return (

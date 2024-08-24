@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../config/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useContext } from 'react';
 import { userContext } from '../Context/UserContextComponent';
@@ -13,7 +13,7 @@ const Sent = () => {
   useEffect(() => {
     const fetchSentMessages = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/messages/sender/${userDetail.employeeId}`);
+        const response = await api.get(`/messages/sender/${userDetail.employeeId}`);
         setSentMessages(response.data.data || []);
       } catch (err) {
         setError('No sent messages');

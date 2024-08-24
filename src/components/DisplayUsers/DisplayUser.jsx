@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import UserRow from './UserRow';
 import './DisplayUser.css';
+import api from '../../config/api';
 
 function DisplayUser({openModal}) {
     const [employees, setEmployees] = useState([]);
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/employee');
+            const response = await api.get('/employee');
             setEmployees(response.data.data);
         } catch (error) {
             console.error('Error fetching users:', error);

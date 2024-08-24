@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../../config/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Form.css'; // Import your custom CSS
 
@@ -16,7 +16,7 @@ const TaskForm = ({ project,update }) => {
   let allUsers = project.team;
 
   useEffect(()=>{
-    axios.get(`http://localhost:8080/api/projects/${project.projectId}`)
+    api.get(`/projects/${project.projectId}`)
     .then((response)=>{
       allUsers=response.data.data.team; 
     })
@@ -65,7 +65,7 @@ const TaskForm = ({ project,update }) => {
     };
     console.log(taskData);
 
-    axios.post(`http://localhost:8080/api/tasks`,taskData)
+    api.post(`/tasks`,taskData)
     .then((response)=>{
       console.log(response);
       console.log(response.data);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../../config/api';
 import './ProfileComponent.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
@@ -17,7 +17,7 @@ const ProfileComponent = () => {
         setUser(userData);
 
     
-        axios.get(`http://localhost:8080/api/profile`, {
+        api.get(`/profile`, {
             params: { email: userData.email },
             responseType: 'arraybuffer'
         })
@@ -41,7 +41,7 @@ const ProfileComponent = () => {
             formData.append('email', user.email);
             formData.append('file', file);
 
-            axios.post('http://localhost:8080/api/profile', formData)
+            api.post('/profile', formData)
                 .then(response => {
                     const blob = new Blob([response.data], { type: response.headers['content-type'] });
                     setImage(URL.createObjectURL(blob)); // Set the image from server response
@@ -54,7 +54,8 @@ const ProfileComponent = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('user');
-        navigate(-1)
+        // navigate(-1)
+        navigate('/login')
     };
 
     const handleResetPassword = () => {

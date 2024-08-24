@@ -23,7 +23,7 @@ const MessageDashboard = () => {
 
   return (
     <div className="message-container message-mt-2">
-      <h1 className="message-text-center message-mb-2">Messages Dashboard</h1>
+      <h1 className="message-text-center message-mb-2" style={{color:"#5d7285"}}>Messages Dashboard</h1>
       <div className="message-text-center message-mb-2">
         <button className="btn btn-primary mx-2" onClick={() => setView('compose')}>Compose</button>
         <button className="btn btn-primary mx-2" onClick={() => setView('inbox')}>Inbox</button>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import api from '../../config/api';
 import './Form.css';
 
 const UserForm = ({ isUpdate = false }) => {
@@ -29,7 +29,7 @@ const UserForm = ({ isUpdate = false }) => {
   useEffect(() => {
     const fetchSkills = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/skill/allSkills');
+        const response = await api.get('/skill/allSkills');
         setSkillsOptions(response.data.data); // Assuming the API returns an array of skill strings
       } catch (error) {
         console.error('Error fetching skills:', error);
@@ -75,7 +75,7 @@ const UserForm = ({ isUpdate = false }) => {
         const existingSkill = skillsOptions.find(skillObj => skillObj.skill === otherSkill);
         
         if (!existingSkill) {
-          await axios.post('http://localhost:8080/api/skill', {
+          await api.post('/skill', {
             skill: otherSkill,
             description: skillDescription,
           });
@@ -105,7 +105,7 @@ const UserForm = ({ isUpdate = false }) => {
   const handleSearch = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get(`http://localhost:8080/api/employee/name?name=${searchName}`);
+      const response = await api.get(`/employee/name?name=${searchName}`);
       if (response.data.data) {
         const employee = response.data.data;
         const formattedDateOfJoining = employee.dateOfJoining.split('T')[0];
@@ -138,13 +138,13 @@ const UserForm = ({ isUpdate = false }) => {
     e.preventDefault();
     try {
       if (isUpdate && isEmployeeFound) {
-        await axios.put('http://localhost:8080/api/employee', {
+        await api.put('/employee', {
           ...formData,
           skills: formData.skills.map(s => ({ skill: s.skill })) 
         });
         alert('Employee updated successfully');
       } else {
-        await axios.post('http://localhost:8080/api/employee', {
+        await api.post('/employee', {
           ...formData,
           skills: formData.skills.map(s => ({ skill: s.skill }))
         });

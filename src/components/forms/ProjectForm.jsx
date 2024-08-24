@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../config/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Form.css'; 
 
@@ -27,10 +27,10 @@ const ProjectForm = ({ isUpdate = false }) => {
   useEffect(() => {
     const fetchClientsAndManagers = async () => {
       try {
-        const clientsResponse = await axios.get('http://localhost:8080/api/clients');
+        const clientsResponse = await api.get('/clients');
         setClients(clientsResponse.data.data);
 
-        const employeesResponse = await axios.get('http://localhost:8080/api/employee');
+        const employeesResponse = await api.get('/employee');
         const managersData = employeesResponse.data.data.filter(employee => employee.role === 'MANAGER'); 
         setManagers(managersData);
       } catch (error) {
@@ -63,7 +63,7 @@ const ProjectForm = ({ isUpdate = false }) => {
     e.preventDefault();
     try {
       console.log('Searching');
-      const response = await axios.get(`http://localhost:8080/api/projects/name?name=${searchName}`);
+      const response = await api.get(`/projects/name?name=${searchName}`);
       if (response.data.data) {
         const project = response.data.data;
 
@@ -108,10 +108,10 @@ const ProjectForm = ({ isUpdate = false }) => {
       };
 
       if (isUpdate && isProjectFound) {
-        await axios.put(`http://localhost:8080/api/projects/${formData.projectId}`, projectData);
+        await api.put(`/projects/${formData.projectId}`, projectData);
         alert('Project updated successfully');
       } else {
-        await axios.post('http://localhost:8080/api/projects', projectData);
+        await api.post('/projects', projectData);
         alert('Project created successfully');
       }
 

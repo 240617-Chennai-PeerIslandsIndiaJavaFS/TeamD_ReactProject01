@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../config/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useContext } from 'react';
 import { userContext } from '../Context/UserContextComponent';
@@ -13,7 +13,7 @@ const Inbox = () => {
   useEffect(() => {
     const fetchInboxMessages = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/messages/receiver/${userDetail.employeeId}`);
+        const response = await api.get(`/messages/receiver/${userDetail.employeeId}`);
         setInboxMessages(response.data.data || []);
       } catch (err) {
         setError('No messages in inbox');

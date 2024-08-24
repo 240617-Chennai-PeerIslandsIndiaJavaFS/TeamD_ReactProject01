@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../../config/api';
 import logo from '../../images/logo.png'; // Adjust paths if needed
 import humanImage from '../../images/homeimage.png'; // Adjust paths if needed
 import ResetButton from '../buttons/ResetButton'; // Adjust path if needed
@@ -16,7 +16,7 @@ const LandingPage = () => {
     useEffect(() => {
         const fetchClients = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/clients');
+                const response = await api.get('/clients');
                 const clientData = response.data.data;
                 if (Array.isArray(clientData)) {
                     setClients(clientData);

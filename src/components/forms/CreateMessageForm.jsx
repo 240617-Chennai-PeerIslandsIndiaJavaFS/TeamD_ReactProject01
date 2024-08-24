@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
 import { userContext } from '../Context/UserContextComponent';
+import api from '../../config/api';
 
 const CreateMessageForm = () => {
   const [subject, setSubject] = useState('');
@@ -15,7 +15,7 @@ const CreateMessageForm = () => {
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/employee');
+        const response = await api.get('/employee');
         setEmployees(response.data.data);
       } catch (error) {
         console.error('Error fetching employees', error);
@@ -42,7 +42,7 @@ const CreateMessageForm = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:8080/api/messages/create', messageData);
+      const response = await api.post('/messages/create', messageData);
       setSuccess('Message sent successfully!');
       setError('');
     } catch (error) {

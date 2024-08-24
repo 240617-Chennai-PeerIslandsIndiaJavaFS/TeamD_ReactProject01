@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './AddTeamMember.css';
 import { userContext } from '../Context/UserContextComponent';
 import { useContext } from 'react';
+import api from '../../config/api';
+
 const AddTeamMember = ({ project }) => {
     const [members, setMembers] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
@@ -16,7 +18,7 @@ const AddTeamMember = ({ project }) => {
     useEffect(() => {
         const fetchMembers = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/projects/${project.projectId}`);
+                const response = await api.get(`/projects/${project.projectId}`);
                 if (response.status === 200) {
                     setMembers(response.data.data.team || []);
                 } else {

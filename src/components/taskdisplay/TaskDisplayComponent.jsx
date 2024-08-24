@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../config/api';
 import ResetButton from '../buttons/ResetButton';
 import './TaskDisplayComponent.css';
 import { userContext } from '../Context/UserContextComponent';
@@ -22,7 +22,7 @@ const TaskDisplayComponent = ({taskid}) => {
 
     useEffect(() => {
         // Fetch task data from API
-        axios.get(`http://localhost:8080/api/tasks/${taskid}`)
+        api.get(`/tasks/${taskid}`)
             .then(response => {
                 const taskData = response.data;
                 setTask(taskData);
@@ -33,7 +33,7 @@ const TaskDisplayComponent = ({taskid}) => {
             .catch(error => console.error('Error fetching task:', error));
 
         // Fetch comments from API
-        axios.get(`http://localhost:8080/api/comments/task/${taskid}`)
+        api.get(`/comments/task/${taskid}`)
             .then(response => {
                 // Ensure comments are set as an array
                 setComments(Array.isArray(response.data.data) ? response.data.data : []);
@@ -41,7 +41,7 @@ const TaskDisplayComponent = ({taskid}) => {
             .catch(error => console.error('Error fetching comments:', error));
 
         // Fetch timeline data from API
-        axios.get(`http://localhost:8080/api/timelines/task/${taskid}`)
+        api.get(`/timelines/task/${taskid}`)
             .then(response => {
                 // Ensure timeline data is set as an array
                 console.log(response.data.data);
@@ -69,7 +69,7 @@ const TaskDisplayComponent = ({taskid}) => {
             setComments([...comments, newCommentData]);
 
             // Optionally, send this new comment to the backend API
-            axios.post('http://localhost:8080/api/comments', newCommentData);
+            api.post('/comments', newCommentData);
             setNewComment('');
         }
     };
@@ -81,7 +81,7 @@ const TaskDisplayComponent = ({taskid}) => {
 
     const deleteTask = () => {
         console.log(taskid);
-        axios.delete(`http://localhost:8080/api/tasks/${task.taskId}`)
+        api.delete(`/tasks/${task.taskId}`)
             .then(() => {
                 alert('Task Deleted');
                 setTask({});
@@ -97,7 +97,7 @@ const TaskDisplayComponent = ({taskid}) => {
                 startDate: editedStartDate,
                 endDate: editedEndDate
             };
-            axios.put(`http://localhost:8080/api/tasks/${task.taskId}`, updatedTask)
+            api.put(`/tasks/${task.taskId}`, updatedTask)
                 .then(response => setTask(response.data))
                 .catch(error => console.error('Error updating task:', error));
         }
