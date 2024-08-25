@@ -69,7 +69,7 @@ const ClientForm = ({ isUpdate = false }) => {
     };
 
     return (
-        <div className="container mt-5 update-component">
+        <div className="container-fluid mt-5 update-component">
             {isUpdate && (
                 <div className="search-section">
                     <input

@@ -25,8 +25,8 @@ const TaskBoard = ({ project ,openModal}) => {
     useEffect(() => {
         const fetchTasks = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/api/tasks/project/${projects[project].projectId}`);
-                const data = await response.json();
+                const response = await api.get(`/tasks/project/${projects[project].projectId}`);
+                const data = await response.data;
                 console.log('Fetched tasks:', data); 
                 
                 // Set tasks in state
@@ -120,19 +120,17 @@ const TaskBoard = ({ project ,openModal}) => {
     
             // POST request to update milestone
             try {
-                await fetch('http://localhost:8080/api/timelines', {
-                    method: 'POST',
+                await api.post('/timelines', {
+                    milestone: destination.droppableId,
+                    timestamp: currentTime,
+                    task: {
+                        taskId: taskId,
+                    },
+                    employeeName: userDetail.employeeName,
+                }, {
                     headers: {
                         'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        milestone: destination.droppableId,
-                        timestamp: currentTime,
-                        task: {
-                            taskId: taskId
-                        },
-                        employeeName:userDetail.employeeName
-                    }),
+                    }
                 });
                 console.log('Task milestone updated successfully');
             } catch (error) {

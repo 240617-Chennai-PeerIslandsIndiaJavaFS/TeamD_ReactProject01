@@ -41,7 +41,7 @@ const AddTeamMember = ({ project }) => {
         }
 
         try {
-            const response = await axios.get('http://localhost:8080/api/employee/name', {
+            const response = await api.get('/employee/name', {
                 params: { name: e.target.value },
             });
 
@@ -64,7 +64,7 @@ const AddTeamMember = ({ project }) => {
         }
     
         try {
-            const response = await axios.post('http://localhost:8080/api/projects/add', null, {
+            const response = await api.post('/projects/add', null, {
                 params: {
                     project_id: project.projectId, // Ensure this matches with backend
                     employee_id: searchResult.employeeId // Ensure this matches with backend
@@ -91,7 +91,7 @@ const AddTeamMember = ({ project }) => {
     const handleDeleteMember = async (employeeId) => {
         try {
             // Assuming project.id and employeeId are correct
-            const response = await axios.delete('http://localhost:8080/api/projects/team', {
+            const response = await api.delete('/projects/team', {
                 params: {
                     project_id: project.projectId,  // Adjust if the backend expects 'project_id'
                     employee_id: employeeId  // Adjust if the backend expects 'employee_id'
