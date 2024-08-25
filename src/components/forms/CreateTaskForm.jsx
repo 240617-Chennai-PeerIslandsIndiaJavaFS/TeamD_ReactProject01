@@ -90,7 +90,7 @@ const TaskForm = ({ project,update }) => {
       <div className="row justify-content-center">
         <div className="col-md-10">
           <div className="form">
-            <h2>Create Task</h2>
+            <h2 className='form-header-title'>Create Task</h2>
             <span id='taskCreation'></span>
             <form onSubmit={handleSubmit}>
               <div className="form-group">

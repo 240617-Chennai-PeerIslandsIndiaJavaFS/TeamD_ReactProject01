@@ -142,7 +142,7 @@ const ProjectForm = ({ isUpdate = false }) => {
       <div className="row justify-content-center">
         <div className="col-md-10">
           <div className="form">
-            <h2>{isUpdate ? 'Update Project' : 'Create Project'}</h2>
+            <h2 className='form-header-title'>{isUpdate ? 'Update Project' : 'Create Project'}</h2>
             {isUpdate && (
               <div className="search-section">
                 <input

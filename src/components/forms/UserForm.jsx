@@ -177,7 +177,7 @@ const UserForm = ({ isUpdate = false }) => {
       <div className="row justify-content-center">
         <div className="col-md-10">
           <div className="form">
-            <h2>{isUpdate ? 'Update Employee' : 'Create Employee'}</h2>
+            <h2 className='form-header-title'>{isUpdate ? 'Update Employee' : 'Create Employee'}</h2>
             {isUpdate && (
               <div className="search-section">
                 <input
