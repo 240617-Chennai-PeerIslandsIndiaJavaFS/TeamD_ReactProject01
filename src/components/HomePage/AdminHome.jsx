@@ -116,8 +116,8 @@ function AdminHome() {
             <TopNav options={navigateOptions} adminContext={setAdminContext} projectDetails={setProjectDetails} />
             {adminContext === "default" || adminContext === "analysis" ? (
               <div>
-                <Analysis title={taskTitle} data={taskData} pie={false} />
                 <Analysis title={projectTitle} data={projectData} pie={true}/>
+                <Analysis title={taskTitle} data={taskData} pie={false} />
               </div>
 
             ) : adminContext === "messages" ? (
