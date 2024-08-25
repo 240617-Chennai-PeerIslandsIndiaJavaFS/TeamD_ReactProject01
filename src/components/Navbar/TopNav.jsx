@@ -41,7 +41,7 @@ export const TopNav = ({options,project,adminContext,projectDetails}) => {
     return (
         <button
             key={index}
-            className="btn btn-outline-warning me-2"
+            className="btn btn-outline-dark"
             type="button"
             onClick={() =>{ 
               adminContext(index)
