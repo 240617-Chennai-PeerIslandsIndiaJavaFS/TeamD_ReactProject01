@@ -3,6 +3,9 @@ import api from '../../config/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Form.css'; // Import your custom CSS
 
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const TaskForm = ({ project,update }) => {
   const [formData, setFormData] = useState({
     projectId: project.projectId,
@@ -68,14 +71,13 @@ const TaskForm = ({ project,update }) => {
     api.post(`/tasks`,taskData)
     .then((response)=>{
       console.log(response);
+      toast.success("task created successfully")
       console.log(response.data);
       if (response.status === 201) {
       update("task")
 
       } else {
-        document.getElementById("taskCreation").style.display = "block";
-        document.getElementById("taskCreation").style.color = "red";
-        document.getElementById("taskCreation").innerHTML = "Task creation failed!";
+        
        
 
       }
@@ -84,11 +86,11 @@ const TaskForm = ({ project,update }) => {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container-fluid mt-5">
       <div className="row justify-content-center">
         <div className="col-md-10">
           <div className="form">
-            <h2>Create Task</h2>
+            <h2 className='form-header-title'>Create Task</h2>
             <span id='taskCreation'></span>
             <form onSubmit={handleSubmit}>
               <div className="form-group">
@@ -155,6 +157,7 @@ const TaskForm = ({ project,update }) => {
           </div>
         </div>
       </div>
+      <ToastContainer/>
     </div>
   );
 };

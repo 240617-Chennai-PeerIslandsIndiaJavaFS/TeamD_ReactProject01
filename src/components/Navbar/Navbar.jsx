@@ -85,8 +85,8 @@ const Navbar = ({ show, toggleNavbar, setNavigate,adminContext}) => {
 
   const logoutClicked=()=>{
       localStorage.removeItem("user");
-      navigate(-1)
-  }
+      navigate("/login");  
+    }
 
   const setProfile=()=>{
     // if(displayProfile){
